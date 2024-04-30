@@ -1,12 +1,9 @@
-import { FacebookAuthButton, GoogleAuthButton } from "./components/authButton";
-import { getUserSession } from "../lib/session";
+import LoginModal from "./components/signInModal";
 
 export default async function Home() {
-  const user = await getUserSession();
   return (
-    <main>
-      <GoogleAuthButton />
-      <FacebookAuthButton />
+    <main className="bg-gray-100 w-[100vw] h-[100vh] flex justify-center items-center">
+      <LoginModal />
     </main>
   );
 }
