@@ -1,9 +1,9 @@
 "use client";
 
-export function googleAuthButton() {
+export function GoogleAuthButton() {
   return <button>Google button</button>;
 }
 
-export function facebookAuthButton() {
+export function FacebookAuthButton() {
   return <button>Facebook button</button>;
 }
