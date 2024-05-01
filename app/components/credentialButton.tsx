@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Form, FormProps, Input } from "antd";
+import { Fragment } from "react";
 
 type FieldType = {
   email?: string;
@@ -16,7 +17,11 @@ const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 
-export default function CredentialButton() {
+export default function CredentialButton({
+  type,
+}: {
+  type: "signin" | "signup";
+}) {
   return (
     <Form
       name="basic"
@@ -43,16 +48,25 @@ export default function CredentialButton() {
       >
         <Input.Password size="large" placeholder="Password" />
       </Form.Item>
+      {type === "signin" ? (
+        <Fragment>
+          <Form.Item>
+            <Button style={{ border: "none" }}>Forgot password ?</Button>
+          </Form.Item>
 
-      <Form.Item>
-        <Button style={{ border: "none" }}>Forgot password ?</Button>
-      </Form.Item>
-
-      <Form.Item>
-        <Button style={{ border: "none" }} htmlType="submit">
-          Login
-        </Button>
-      </Form.Item>
+          <Form.Item>
+            <Button style={{ border: "none" }} htmlType="submit">
+              Login
+            </Button>
+          </Form.Item>
+        </Fragment>
+      ) : (
+        <Form.Item>
+          <Button style={{ border: "none" }} htmlType="submit">
+            Sign up
+          </Button>
+        </Form.Item>
+      )}
     </Form>
   );
 }

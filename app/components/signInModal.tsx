@@ -2,9 +2,9 @@ import { FacebookAuthButton, GoogleAuthButton } from "./authButton";
 import CloseButton from "./closeButton";
 import CredentialButton from "./credentialButton";
 
-export default function LoginModal() {
+export default function SignInModal() {
   return (
-    <div className="bg-white rounded-xl">
+    <div className="bg-white rounded-xl w-full lg:w-auto">
       <div className="flex m-2 justify-end">
         <CloseButton />
       </div>
@@ -17,7 +17,7 @@ export default function LoginModal() {
           <div>or</div>
           <div className="bg-gray-300 w-full h-[1px] ml-5"></div>
         </div>
-        <CredentialButton />
+        <CredentialButton type="signin" />
       </div>
     </div>
   );

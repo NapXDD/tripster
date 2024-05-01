@@ -7,9 +7,9 @@ export function GoogleAuthButton() {
   return (
     <button
       className="bg-white text-gray-600 font-semibold
-      px-4 py-2 rounded-md shadow-md transition duration-100 hover:bg-gray-100 focus:outline-none
-      focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-      lg: w-[300px]"
+      px-4 py-2 rounded-md shadow-md transition duration-100 hover:bg-gray-100 
+      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+      lg:w-[300px] w-full"
     >
       <div className="flex justify-center items-center gap-2">
         <Image
@@ -19,7 +19,7 @@ export function GoogleAuthButton() {
           height={10}
           className="w-auto h-auto"
         />
-        <span>Sign in with Google</span>
+        <span>Countinue with Google</span>
       </div>
     </button>
   );
@@ -28,10 +28,10 @@ export function GoogleAuthButton() {
 export function FacebookAuthButton() {
   return (
     <button
-      className="bg-blue-600 text-white font-semibold
+      className="bg-blue-600 text-white font-semibold border
        px-4 py-2 rounded-md shadow-md transition duration-100 hover:bg-blue-700 
        focus:outline-none focus:ring-2 focus:ring-blue-500 
-       focus:ring-offset-2 lg: w-[300px]"
+       focus:ring-offset-2 lg:w-[300px] w-full"
     >
       <div className="flex justify-center items-center gap-2">
         <Image
@@ -41,7 +41,7 @@ export function FacebookAuthButton() {
           height={10}
           className="w-auto h-auto"
         />
-        <span>Sign in with Facebook</span>
+        <span>Countinue with Facebook</span>
       </div>
     </button>
   );
