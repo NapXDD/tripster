@@ -1,4 +1,3 @@
-import { sign } from "crypto";
 import SignInModal from "./components/Modal/signInModal";
 import SignUpModal from "./components/Modal/signUpModal";
 import Header from "./components/header";
