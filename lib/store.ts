@@ -1,8 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
+import modalReducer from "./features/modal";
+import overlayReducer from "./features/overlay";
+import authenticateReducer from "./features/authenticate";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      modal: modalReducer,
+      overlay: overlayReducer,
+      authenticate: authenticateReducer,
+    },
   });
 };
 
