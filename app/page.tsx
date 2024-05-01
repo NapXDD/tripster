@@ -1,7 +1,8 @@
 import SignInModal from "./components/Modal/signInModal";
 import SignUpModal from "./components/Modal/signUpModal";
-import Header from "./components/header";
+import Header from "./components/Header/header";
 import OverLay, { Component } from "./components/overlay";
+import { getUserSession } from "@/lib/session";
 
 const components: Component = {
   signin: <SignInModal />,
@@ -11,9 +12,10 @@ const components: Component = {
 };
 
 export default async function Home() {
+  const user = await getUserSession();
   return (
     <main className="bg-gray-100 w-[100vw] h-[100vh] flex">
-      <Header />
+      <Header user={user} />
       <OverLay Component={components} />
     </main>
   );

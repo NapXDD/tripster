@@ -1,11 +1,17 @@
 "use client";
 
 import { facebookLogo, googleLogo } from "@/utils/importer";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 
 export function GoogleAuthButton() {
+  const handleSignin = () => {
+    signIn("google");
+  };
+
   return (
     <button
+      onClick={handleSignin}
       className="bg-white text-gray-600 font-semibold
       px-4 py-2 rounded-md shadow-md transition duration-100 hover:bg-gray-100 
       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
@@ -26,8 +32,12 @@ export function GoogleAuthButton() {
 }
 
 export function FacebookAuthButton() {
+  const handleSignin = () => {
+    signIn("facebook");
+  };
   return (
     <button
+      onClick={handleSignin}
       className="bg-blue-600 text-white font-semibold border
        px-4 py-2 rounded-md shadow-md transition duration-100 hover:bg-blue-700 
        focus:outline-none focus:ring-2 focus:ring-blue-500 
