@@ -1,0 +1,24 @@
+import { FacebookAuthButton, GoogleAuthButton } from "../button/authButton";
+import CloseButton from "../button/closeButton";
+import CredentialButton from "../button/credentialButton";
+
+export default function SignInModal() {
+  return (
+    <div className="bg-white rounded-xl w-full md:w-auto lg:w-auto">
+      <div className="flex m-2 justify-end">
+        <CloseButton />
+      </div>
+      <div className="mb-14 ml-14 mr-14 mt-8 flex flex-col gap-2 justify-center items-center">
+        <span className="mb-5 text-lg font-bold">Login to Tripster</span>
+        <GoogleAuthButton />
+        <FacebookAuthButton />
+        <div className="flex items-center justify-between w-full mt-4 mb-4">
+          <div className="bg-gray-300 w-full h-[1px] mr-5"></div>
+          <div>or</div>
+          <div className="bg-gray-300 w-full h-[1px] ml-5"></div>
+        </div>
+        <CredentialButton type="signin" />
+      </div>
+    </div>
+  );
+}
