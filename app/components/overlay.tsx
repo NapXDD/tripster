@@ -3,8 +3,7 @@
 import { useAppSelector } from "@/lib/hooks";
 import { useEffect, useState } from "react";
 
-type modal = "signin" | "signup" | "resetpassword" | "forgotpassword" | string;
-export type Component = Record<modal, JSX.Element>;
+export type Component = Record<string, JSX.Element>;
 
 export default function OverLay({ Component }: { Component: Component }) {
   const isOverLayOpen = useAppSelector((state) => state.overlay.value);
