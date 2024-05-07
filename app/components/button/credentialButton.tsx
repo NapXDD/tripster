@@ -6,7 +6,6 @@ import { Fragment } from "react";
 type FieldType = {
   email?: string;
   password?: string;
-  remember?: string;
 };
 
 const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
