@@ -1,15 +1,20 @@
 "use client";
 import { User } from "next-auth";
 import SignInButton from "../button/signInButton";
-import SignOutButton from "../button/signOutButton";
 import SignUpButton from "../button/signUpButton";
 import Logo from "./Logo";
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { setUser } from "@/lib/features/user";
+import ProfileButton from "../button/profileButton";
 
 export default function Header({ user }: { user: User }) {
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.user.value.user);
+
   useEffect(() => {
     if (user) {
-      console.log(user);
+      dispatch(setUser(user));
     }
   }, [user]);
 
@@ -18,8 +23,8 @@ export default function Header({ user }: { user: User }) {
       <div className="flex justify-between w-[80%] items-center">
         <Logo />
         <div className="flex gap-2">
-          {user ? (
-            <SignOutButton />
+          {currentUser.email !== "" ? (
+            <ProfileButton currentUser={currentUser} />
           ) : (
             <>
               <SignInButton />
