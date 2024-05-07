@@ -2,7 +2,10 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 let initialState = {
-  value: "",
+  value: {
+    accessToken: "",
+    refreshToken: "",
+  },
 };
 
 export const authenticate = createSlice({
