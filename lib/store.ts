@@ -2,6 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./features/modal";
 import overlayReducer from "./features/overlay";
 import authenticateReducer from "./features/authenticate";
+import userReducer from "./features/user";
+import planningReducer from "./features/planning";
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +11,8 @@ export const makeStore = () => {
       modal: modalReducer,
       overlay: overlayReducer,
       authenticate: authenticateReducer,
+      user: userReducer,
+      planning: planningReducer,
     },
   });
 };
