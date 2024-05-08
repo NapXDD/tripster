@@ -24,7 +24,7 @@ export default function OverLay({ Component }: { Component: Component }) {
     <div
       className={`transition duration-100 bg-black bg-opacity-50 ${
         isOverLayOpen === true ? `` : `opacity-0 pointer-events-none`
-      } fixed w-[100vw] h-[100vh] flex justify-center items-center`}
+      } fixed w-[100%] h-[100vh] flex justify-center items-center`}
     >
       {Component[keyModal]}
     </div>
