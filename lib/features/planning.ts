@@ -37,11 +37,31 @@ export const planning = createSlice({
     setBudget: (state, action: PayloadAction<number>) => {
       state.value.budget = action.payload;
     },
-    setActivities: (state, action: PayloadAction<string[]>) => {
-      state.value.activities = action.payload;
+    setActivities: (state, action: PayloadAction<string>) => {
+      const value = action.payload;
+      if (state.value.activities.length < 5) {
+        state.value.activities.push(value);
+      }
     },
-    setAmentities: (state, action: PayloadAction<string[]>) => {
-      state.value.activities = action.payload;
+    removeActivities: (state, action: PayloadAction<string>) => {
+      const value = action.payload;
+      const valueIndex = state.value.activities.indexOf(value);
+      if (valueIndex !== -1) {
+        state.value.activities.splice(valueIndex, 1);
+      }
+    },
+    setAmentities: (state, action: PayloadAction<string>) => {
+      const value = action.payload;
+      if (state.value.amentities.length < 5) {
+        state.value.amentities.push(value);
+      }
+    },
+    removeAmentities: (state, action: PayloadAction<string>) => {
+      const value = action.payload;
+      const valueIndex = state.value.amentities.indexOf(value);
+      if (valueIndex !== -1) {
+        state.value.amentities.splice(valueIndex, 1);
+      }
     },
   },
 });
@@ -52,6 +72,8 @@ export const {
   setBudget,
   setActivities,
   setAmentities,
+  removeActivities,
+  removeAmentities,
 } = planning.actions;
 
 export const selectPlanning = (state: RootState) => state.planning.value;
