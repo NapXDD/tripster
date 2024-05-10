@@ -10,5 +10,12 @@ export default function SignInButton() {
     dispatch(openOverLay(true));
     dispatch(openModal("signin"));
   };
-  return <button onClick={handleOpenSignInModal}>Sign In</button>;
+  return (
+    <button
+      className="bgRed text-white hover:bgRedHover rounded-full px-5 py-2"
+      onClick={handleOpenSignInModal}
+    >
+      Sign In
+    </button>
+  );
 }

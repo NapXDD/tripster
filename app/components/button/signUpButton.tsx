@@ -10,5 +10,12 @@ export default function SignUpButton() {
     dispatch(openOverLay(true));
     dispatch(openModal("signup"));
   };
-  return <button onClick={handleOpenSignUpModal}>Sign Up</button>;
+  return (
+    <button
+      className="border-2 rounded-full px-5 py-2"
+      onClick={handleOpenSignUpModal}
+    >
+      Sign Up
+    </button>
+  );
 }
