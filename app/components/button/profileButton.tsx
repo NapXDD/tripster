@@ -4,26 +4,27 @@ import SignOutButton from "./signOutButton";
 import { CurrentUser } from "@/lib/features/user";
 import { MenuOutlined } from "@ant-design/icons";
 import { Dropdown, MenuProps } from "antd";
-
-const items: MenuProps["items"] = [
-  {
-    label: <a href="https://www.antgroup.com">Account</a>,
-    key: "0",
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: <SignOutButton />,
-    key: "1",
-  },
-];
+import Link from "next/link";
 
 export default function ProfileButton({
   currentUser,
 }: {
   currentUser: CurrentUser;
 }) {
+  const items: MenuProps["items"] = [
+    {
+      label: <Link href={`/profile/${currentUser.id}`}>Account</Link>,
+      key: "0",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: <SignOutButton />,
+      key: "1",
+    },
+  ];
+
   return (
     <Dropdown menu={{ items }} trigger={["click"]}>
       <button
