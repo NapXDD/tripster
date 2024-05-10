@@ -3,9 +3,13 @@
 import { useAppSelector } from "@/lib/hooks";
 import { useEffect, useState } from "react";
 
-export type Component = Record<string, JSX.Element>;
+export type OverlayComponent = Record<string, JSX.Element>;
 
-export default function OverLay({ Component }: { Component: Component }) {
+export default function OverLay({
+  Component,
+}: {
+  Component: OverlayComponent;
+}) {
   const isOverLayOpen = useAppSelector((state) => state.overlay.value);
   const modal = useAppSelector((state) => state.modal.value);
   const [keyModal, setKeyModal] = useState("");
