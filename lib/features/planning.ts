@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-interface init {
+interface PlanningInit {
   value: {
     transportation: string;
     startDate: string;
@@ -12,7 +12,7 @@ interface init {
   };
 }
 
-let initialState: init = {
+let initialState: PlanningInit = {
   value: {
     transportation: "",
     startDate: "",
