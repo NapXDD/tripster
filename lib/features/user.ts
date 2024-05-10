@@ -3,6 +3,7 @@ import { RootState } from "../store";
 import { User } from "next-auth";
 
 export interface CurrentUser {
+  id: string;
   username: string;
   email: string;
   image: string;
@@ -17,6 +18,7 @@ interface Init {
 let initialState: Init = {
   value: {
     user: {
+      id: "1",
       username: "",
       email: "",
       image: "",
@@ -32,6 +34,7 @@ export const user = createSlice({
       let username = action.payload.email?.split("@")[0];
       if (username && action.payload.email && action.payload.image) {
         let currentUser: CurrentUser = {
+          id: "1",
           username: username,
           email: action.payload.email,
           image: action.payload.image,
@@ -41,6 +44,7 @@ export const user = createSlice({
     },
     removeUser: (state) => {
       let currentUser: CurrentUser = {
+        id: "1",
         username: "",
         email: "",
         image: "",
