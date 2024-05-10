@@ -5,14 +5,16 @@ export interface ModalOpen {
   value: Record<string, boolean>;
 }
 
+export type openModal = "signin" | "signup" | "editprofile" | "forgotpassword";
+
 let initialState: ModalOpen = {
   value: {
     SignIn: false,
     SignUp: false,
+    EditProfile: false,
+    ForgotPassword: false,
   },
 };
-
-type openModal = "signin" | "signup";
 
 export const modal = createSlice({
   name: "modal",
