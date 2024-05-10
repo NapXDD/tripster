@@ -20,17 +20,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getUserSession();
   return (
     <StoreProvider>
       <html lang="en">
         <body className={inter.className}>
           <AntdRegistry>
             <OverLay Component={components} />
-            <Header user={user} />
-            <div className="flex justify-center">
-              <div className="w-[80%] mt-5">{children}</div>
-            </div>
+            {children}
           </AntdRegistry>
         </body>
       </html>
