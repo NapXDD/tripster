@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Logo() {
-  return <span>Tripster</span>;
+  return <Link href="/">Tripster</Link>;
 }
