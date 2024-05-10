@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "antd";
-import BudgetInput from "../input/budgetInput";
-import DestinationInput from "../input/destinationInput";
-import SelectTagInput from "../input/selectTagInput";
-import TimeInput from "../input/timeInput";
-import TransportationInput from "../input/transportationInput";
+import BudgetInput from "../input/createPlanInput/budgetInput";
+import DestinationInput from "../input/createPlanInput/destinationInput";
+import SelectTagInput from "../input/createPlanInput/selectTagInput";
+import TimeInput from "../input/createPlanInput/timeInput";
+import TransportationInput from "../input/createPlanInput/transportationInput";
 import { activitiesTags, amentitiesTags } from "@/utils/importer";
 import { useAppSelector } from "@/lib/hooks";
 
