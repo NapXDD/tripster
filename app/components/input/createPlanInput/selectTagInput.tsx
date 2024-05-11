@@ -1,10 +1,10 @@
 "use client";
 
-import { Tag, TagSelection } from "@/app/type/tag";
+import { Tag, TagSelection } from "@/app/type/tag/tag";
 import SelectTagButton from "../../button/selectTagButton";
 import { selectionObj } from "@/utils/reduxTagSelection";
-import { handleSelectFunc } from "@/app/type/selection";
 import { useEffect, useState } from "react";
+import { handleSelectFunc } from "@/app/type/tag/selection";
 
 export default function SelectTagInput({
   data,
