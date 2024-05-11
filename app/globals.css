@@ -10,4 +10,9 @@
   .bgRedHover {
     background-color: rgb(202, 41, 71);
   }
+
+  .title {
+    color: #1f2937;
+    font-weight: 700;
+  }
 }
