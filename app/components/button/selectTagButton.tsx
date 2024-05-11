@@ -1,5 +1,5 @@
 "use client";
-import { Tag, TagSelection } from "@/app/type/tag";
+import { Tag, TagSelection } from "@/app/type/tag/tag";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useState } from "react";
 
@@ -33,7 +33,7 @@ export default function SelectTagButton({
 
   return (
     <button
-      className={isSelect ? "bg-gray-400" : ""}
+      className={isSelect ? "bg-gray-400 p-2 rounded-xl" : ""}
       onClick={() => handleSelect(tag.value)}
     >
       {tag.title}
