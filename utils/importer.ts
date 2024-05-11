@@ -1,4 +1,4 @@
-import { Tag } from "@/app/type/tag";
+import { Tag } from "@/app/type/tag/tag";
 
 export const googleLogo = "/thirdPartyLogo/Google.png";
 export const facebookLogo = "/thirdPartyLogo/Facebook.png";

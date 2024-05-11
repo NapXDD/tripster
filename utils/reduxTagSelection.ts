@@ -1,4 +1,4 @@
-import { handleSelection } from "@/app/type/selection";
+import { handleSelection } from "@/app/type/tag/selection";
 import {
   removeActivities,
   removeAmentities,
