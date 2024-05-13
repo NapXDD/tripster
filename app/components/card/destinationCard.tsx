@@ -1,3 +1,3 @@
-export default function DestinationCard() {
-  return <div className="flex">this is destination card</div>;
+export default function ActivityCard() {
+  return <div className="flex">this is activity card</div>;
 }

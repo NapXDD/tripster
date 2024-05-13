@@ -1,15 +1,15 @@
 import ItineraryListCard from "../list/itineraryListCard";
-import PlanningDetailLayout from "./planningDetailLayout";
+import PlanningDetailContentLayout from "../layout/planningDetailContentLayout";
 
 export default function ItineraryCard() {
   return (
-    <PlanningDetailLayout>
+    <PlanningDetailContentLayout>
       <div className="h-screen" id="itinerary">
         <div className="title">
           <div className="pt-2">Itinerary</div>
         </div>
         <ItineraryListCard />
       </div>
-    </PlanningDetailLayout>
+    </PlanningDetailContentLayout>
   );
 }

@@ -1,9 +1,9 @@
-import PlanningDetailLayout from "./planningDetailLayout";
+import PlanningDetailContentLayout from "../layout/planningDetailContentLayout";
 
 export default function TripTitle({ title }: { title: string }) {
   return (
-    <PlanningDetailLayout>
+    <PlanningDetailContentLayout>
       <div className="h-16 flex items-center title">Trip to {title}</div>
-    </PlanningDetailLayout>
+    </PlanningDetailContentLayout>
   );
 }

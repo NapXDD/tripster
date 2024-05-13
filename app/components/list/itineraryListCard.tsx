@@ -1,12 +1,12 @@
-import DestinationCard from "../card/destinationCard";
+import ActivityCard from "../card/destinationCard";
 
 export default function ItineraryListCard() {
   return (
     <div className="flex flex-col">
-      <DestinationCard />
-      <DestinationCard />
-      <DestinationCard />
-      <DestinationCard />
+      <ActivityCard />
+      <ActivityCard />
+      <ActivityCard />
+      <ActivityCard />
     </div>
   );
 }
