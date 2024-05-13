@@ -1,11 +1,9 @@
 import PlanningDetailLayout from "./planningDetailLayout";
 
-export default function TripTitle() {
+export default function TripTitle({ title }: { title: string }) {
   return (
     <PlanningDetailLayout>
-      <div className="font-bold h-16 flex items-center text-gray-800">
-        Trip to HCM
-      </div>
+      <div className="h-16 flex items-center title">Trip to {title}</div>
     </PlanningDetailLayout>
   );
 }
