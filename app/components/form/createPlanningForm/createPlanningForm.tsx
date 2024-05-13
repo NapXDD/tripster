@@ -48,9 +48,11 @@ export default function CreatePlanningForm() {
       <FormItem label="Tiện ích, dịch vụ">
         <SelectTagInput data={amentitiesTags} type="amentities" />
       </FormItem>
-      <Button className="w-auto px-2 py-2 lg:w-[25%]" onClick={handleSubmit}>
-        Lập kế hoạch
-      </Button>
+      <div className="flex">
+        <Button className="w-auto px-2 py-2" onClick={handleSubmit}>
+          Lập kế hoạch
+        </Button>
+      </div>
     </div>
   );
 }
