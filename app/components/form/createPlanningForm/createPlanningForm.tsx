@@ -22,7 +22,7 @@ export default function CreatePlanningForm() {
   const handleSubmit = () => {
     if (user.email !== "") {
       console.log(planning);
-      router.push("/planningDetail/1");
+      router.push("/planningSelection");
     } else {
       dispatch(openOverLay(true));
       dispatch(openModal("signin"));
