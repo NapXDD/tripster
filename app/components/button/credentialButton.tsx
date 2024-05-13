@@ -1,5 +1,7 @@
 "use client";
 
+import { openModal } from "@/lib/features/modal";
+import { useAppDispatch } from "@/lib/hooks";
 import { Button, Form, FormProps, Input } from "antd";
 import { Fragment } from "react";
 
@@ -21,6 +23,12 @@ export default function CredentialButton({
 }: {
   type: "signin" | "signup";
 }) {
+  const dispatch = useAppDispatch();
+
+  const openForgotModal = () => {
+    dispatch(openModal("forgotpassword"));
+  };
+
   return (
     <Form
       name="basic"
@@ -50,7 +58,9 @@ export default function CredentialButton({
       {type === "signin" ? (
         <Fragment>
           <Form.Item>
-            <Button style={{ border: "none" }}>Forgot password ?</Button>
+            <Button onClick={openForgotModal} style={{ border: "none" }}>
+              Forgot password ?
+            </Button>
           </Form.Item>
 
           <Form.Item>
