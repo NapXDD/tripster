@@ -3,6 +3,7 @@ import { Tag } from "@/app/type/tag/tag";
 export const googleLogo = "/thirdPartyLogo/Google.png";
 export const facebookLogo = "/thirdPartyLogo/Facebook.png";
 export const avatar = "/avatar/avatar.jpg";
+export const wallpaper = "/wallpaper/wallpaper.webp";
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 export const FACEBOOK_CLIENT_ID = process.env.FACEBOOK_CLIENT_ID!;
