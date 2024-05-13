@@ -17,7 +17,7 @@ export default async function RootLayout({
       <AntdRegistry>
         <OverLay Component={components} />
 
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-gray-200">
           <div className="fixed w-full bg-white">
             <Header user={user} />
           </div>
