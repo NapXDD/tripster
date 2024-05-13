@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+.anticon svg {
+  transition: transform 300ms ease;
+}
+
 @layer components {
   .bgRed {
     background-color: #ff385dff;
@@ -14,5 +22,9 @@
   .title {
     color: #1f2937;
     font-weight: 700;
+  }
+
+  .hideScrollBar::-webkit-scrollbar {
+    display: none;
   }
 }
