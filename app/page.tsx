@@ -1,7 +1,8 @@
 import { getUserSession } from "@/lib/session";
 import Header from "./components/Header/header";
-import Link from "next/link";
 import Footer from "./components/footer";
+import HomePageNotSignIn from "./components/card/homePageNotSignIn";
+import HomePageSignIn from "./components/card/homePageSignIn";
 
 export default async function Home() {
   const user = await getUserSession();
@@ -10,15 +11,7 @@ export default async function Home() {
       <Header user={user} />
       <main className="flex justify-center w-full">
         <div className="w-[80%] min-h-[calc(100vh-10rem)] flex items-center">
-          <div className="flex flex-col">
-            <div>lmao</div>
-            <Link
-              className="bgRed px-5 py-2 text-white rounded-3xl"
-              href={"/createPlanning"}
-            >
-              Lập kế hoạch
-            </Link>
-          </div>
+          {!user ? <HomePageNotSignIn /> : <HomePageSignIn />}
         </div>
       </main>
       <Footer />
