@@ -13,7 +13,7 @@ export default function ProfileButton({
 }) {
   const items: MenuProps["items"] = [
     {
-      label: <Link href={`/profile/${currentUser.id}`}>Account</Link>,
+      label: <Link href={`/profile/${currentUser.id}`}>Tài khoản</Link>,
       key: "0",
     },
     {

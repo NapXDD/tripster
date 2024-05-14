@@ -13,7 +13,7 @@ export default function SignInButton() {
   };
   return (
     <Button className="px-5 py-2" onClick={handleOpenSignInModal}>
-      Sign In
+      Đăng nhập
     </Button>
   );
 }
