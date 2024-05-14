@@ -3,6 +3,8 @@
 import { Tabs, TabsProps } from "antd";
 import PlanningDetailContentCard from "../card/planningDetailContentCard";
 import TripTitle from "../card/tripTitle";
+import { useAppDispatch } from "@/lib/hooks";
+import { setPlanNumber } from "@/lib/features/planningSelection";
 
 const items: TabsProps["items"] = [
   {
@@ -33,8 +35,10 @@ const items: TabsProps["items"] = [
 ];
 
 export default function PlanningDetailTab() {
+  const dispatch = useAppDispatch();
+
   const handleSwitchPlan = (key: string) => {
-    console.log(key);
+    dispatch(setPlanNumber(key));
   };
 
   return (
