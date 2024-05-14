@@ -1,5 +1,5 @@
 "use client";
-import { setTransportation } from "@/lib/features/planning";
+import { setTransportation } from "@/lib/features/createPlanning";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { icon } from "@/utils/vehicalIcon";
 import { Tooltip } from "antd";
