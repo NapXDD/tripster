@@ -3,7 +3,9 @@ import modalReducer from "./features/modal";
 import overlayReducer from "./features/overlay";
 import authenticateReducer from "./features/authenticate";
 import userReducer from "./features/user";
-import planningReducer from "./features/planning";
+import createPlanningReducer from "./features/createPlanning";
+import planningReducer from "./features/planningDetail";
+import planningSelectionReducer from "./features/planningSelection";
 
 export const makeStore = () => {
   return configureStore({
@@ -12,7 +14,9 @@ export const makeStore = () => {
       overlay: overlayReducer,
       authenticate: authenticateReducer,
       user: userReducer,
+      createPlanning: createPlanningReducer,
       planning: planningReducer,
+      planningSelection: planningSelectionReducer,
     },
   });
 };

@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-interface PlanningInit {
+interface CreatePlanningInit {
   value: {
     transportation: string;
     startDate: string;
@@ -12,7 +12,7 @@ interface PlanningInit {
   };
 }
 
-let initialState: PlanningInit = {
+let initialState: CreatePlanningInit = {
   value: {
     transportation: "",
     startDate: "",
@@ -23,8 +23,8 @@ let initialState: PlanningInit = {
   },
 };
 
-export const planning = createSlice({
-  name: "planning",
+export const createPlanning = createSlice({
+  name: "createPlanning",
   initialState,
   reducers: {
     setTransportation: (state, action: PayloadAction<string>) => {
@@ -74,7 +74,8 @@ export const {
   setAmentities,
   removeActivities,
   removeAmentities,
-} = planning.actions;
+} = createPlanning.actions;
 
-export const selectPlanning = (state: RootState) => state.planning.value;
-export default planning.reducer;
+export const selectCreatePlanning = (state: RootState) =>
+  state.createPlanning.value;
+export default createPlanning.reducer;

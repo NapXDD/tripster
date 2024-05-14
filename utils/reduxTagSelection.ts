@@ -4,7 +4,7 @@ import {
   removeAmentities,
   setActivities,
   setAmentities,
-} from "@/lib/features/planning";
+} from "@/lib/features/createPlanning";
 
 export const activitiesFunc: handleSelection = {
   value: "activities",
