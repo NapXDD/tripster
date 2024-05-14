@@ -6,7 +6,7 @@ export default function PlanningDetail({ params }: { params: { id: string } }) {
   return (
     <>
       <TripTitle title="HCM" />
-      <ItineraryCard />
+      <ItineraryCard id={params.id}/>
       <BudgetCard />
     </>
   );
