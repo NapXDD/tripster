@@ -1,3 +1,15 @@
-export default function ActivityCard() {
-  return <div className="flex">this is activity card</div>;
+export default function DestinationCard({
+  data,
+}: {
+  data: Record<string, string> | null;
+}) {
+  return (
+    <div className="flex flex-col">
+      {data === null ? (
+        <div className="text-gray-500 text-sm">No place</div>
+      ) : (
+        <>Lmao</>
+      )}
+    </div>
+  );
 }
