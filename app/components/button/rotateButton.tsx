@@ -1,14 +1,16 @@
 "use client";
 
 import { RightOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 export default function RotateButton({
   handleVisible,
+  open,
 }: {
   handleVisible: (value: boolean) => void;
+  open?: boolean;
 }) {
-  const [rotate, setRotate] = useState(0);
+  const [rotate, setRotate] = useState(open ? 90 : 0);
 
   const handleRotate = () => {
     if (rotate === 0) {
