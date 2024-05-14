@@ -7,7 +7,7 @@ export default function HomePageNotSignIn() {
     <div className="flex items-center">
       <div className="w-1/2">
         <div className="title mb-2">
-          You'll never travel without our trip planner again
+          Lên kế hoạch thực hiện chuyến đi cùng Tripster
         </div>
         <div className="text-gray-600 mb-4">
           Travel planning at its best. Build, organize and map your custom
