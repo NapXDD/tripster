@@ -23,7 +23,7 @@ export default function ProfileCard({ userId }: { userId: string }) {
       <div className="font-bold">{currentUser.username}</div>
       <div>{currentUser.email}</div>
       <OpenOverlayButon
-        text="Edit"
+        text="Chỉnh sửa"
         icon={<EditOutlined />}
         modal="editprofile"
       />

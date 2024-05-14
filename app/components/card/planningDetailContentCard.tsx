@@ -10,7 +10,7 @@ export default function PlanningDetailContentCard() {
       <Divider />
       <BudgetCard />
       <Divider />
-      <Button className="mb-7 py-1">Save</Button>
+      <Button className="mb-7 py-1 ml-6">Save</Button>
     </div>
   );
 }

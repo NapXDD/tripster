@@ -17,7 +17,7 @@ const data = [
 
 export default function InteraryList() {
   return (
-    <ListLayout title="Itinerary">
+    <ListLayout id="Itinerary" title="Lịch trình">
       <div className="flex flex-col gap-5 mt-5">
         <ListItem data={data} id="itinerary" />
       </div>
