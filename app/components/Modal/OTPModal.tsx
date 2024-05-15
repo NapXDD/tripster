@@ -1,9 +1,9 @@
 import InputOTP from "../input/inputOTP";
 
-export default function OTPModal() {
+export default function OTPModal({ children }: { children?: React.ReactNode }) {
   return (
     <div className="flex flex-col">
-      <div className="flex">Kiểm tra mã OTP trong mail của bạn</div>
+      {children}
       <InputOTP />
     </div>
   );
