@@ -9,6 +9,7 @@ interface CreatePlanningInit {
     budget: number;
     activities: string[];
     amentities: string[];
+    listDate: string[];
   };
 }
 
@@ -20,6 +21,7 @@ let initialState: CreatePlanningInit = {
     budget: 0,
     activities: [],
     amentities: [],
+    listDate: [],
   },
 };
 
@@ -63,6 +65,10 @@ export const createPlanning = createSlice({
         state.value.amentities.splice(valueIndex, 1);
       }
     },
+    setListDate: (state, action: PayloadAction<string[]>) => {
+      const value = action.payload;
+      state.value.listDate = value;
+    },
   },
 });
 
@@ -74,6 +80,7 @@ export const {
   setAmentities,
   removeActivities,
   removeAmentities,
+  setListDate,
 } = createPlanning.actions;
 
 export const selectCreatePlanning = (state: RootState) =>
