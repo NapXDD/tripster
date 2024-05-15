@@ -1,9 +1,10 @@
+import InputOTP from "../input/inputOTP";
 import OverlayModal from "./overlayModal";
 
 export default function ForgotPasswordModal() {
   return (
-    <OverlayModal>
-      <div>this is forgot password modal</div>
+    <OverlayModal title="Quên mật khẩu">
+      
     </OverlayModal>
   );
 }
