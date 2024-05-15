@@ -8,7 +8,7 @@ export default function ItineraryCard({ id }: { id?: string }) {
         <div className="title">
           <div className="pt-8 text-2xl pb-4">Lịch trình</div>
         </div>
-        <ItineraryListCard />
+        <ItineraryListCard id={id} />
       </div>
     </PlanningDetailContentLayout>
   );
