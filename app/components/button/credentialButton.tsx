@@ -2,12 +2,13 @@
 
 import { openModal } from "@/lib/features/modal";
 import { useAppDispatch } from "@/lib/hooks";
+import { signup } from "@/utils/api/authenticate";
 import { Button, Form, FormProps, Input } from "antd";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 type FieldType = {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 };
 
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
@@ -20,17 +21,36 @@ export default function CredentialButton({
   type: "signin" | "signup";
 }) {
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   const openForgotModal = () => {
     dispatch(openModal("forgotpassword"));
   };
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    setIsLoading(true);
     if (type === "signin") {
-      console.log("Success:", values);
+      try {
+        const response = await signup("/auth/signin", {
+          email: values.email,
+          password: values.password,
+        });
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
     } else {
-      
+      try {
+        const response = await signup("/auth/signup", {
+          email: values.email,
+          password: values.password,
+        });
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -75,7 +95,11 @@ export default function CredentialButton({
         </Fragment>
       ) : (
         <Form.Item>
-          <Button style={{ border: "none" }} htmlType="submit">
+          <Button
+            disabled={isLoading}
+            style={{ border: "none" }}
+            htmlType="submit"
+          >
             Sign up
           </Button>
         </Form.Item>
