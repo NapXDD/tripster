@@ -10,10 +10,6 @@ type FieldType = {
   password?: string;
 };
 
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-  console.log("Success:", values);
-};
-
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
@@ -27,6 +23,14 @@ export default function CredentialButton({
 
   const openForgotModal = () => {
     dispatch(openModal("forgotpassword"));
+  };
+
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    if (type === "signin") {
+      console.log("Success:", values);
+    } else {
+      
+    }
   };
 
   return (
