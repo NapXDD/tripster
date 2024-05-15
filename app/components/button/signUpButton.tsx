@@ -15,7 +15,7 @@ export default function SignUpButton() {
       className="border-2 rounded-full px-5 py-2"
       onClick={handleOpenSignUpModal}
     >
-      Sign Up
+      Đăng ký
     </button>
   );
 }
