@@ -8,6 +8,7 @@ export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 export const FACEBOOK_CLIENT_ID = process.env.FACEBOOK_CLIENT_ID!;
 export const FACEBOOK_CLIENT_SECRET = process.env.FACEBOOK_CLIENT_SECRET!;
+export const BASE_URL = process.env.BASE_URL!;
 
 export const activitiesTags: Tag[] = [
   { title: "act 1", value: "act1" },
