@@ -1,7 +1,7 @@
 export default function DestinationCard({
   data,
 }: {
-  data: Record<string, string> | null;
+  data: Record<string, string> | null | JSX.Element;
 }) {
   return (
     <div className="flex flex-col">
