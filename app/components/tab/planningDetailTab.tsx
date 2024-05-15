@@ -3,7 +3,7 @@
 import { Tabs, TabsProps } from "antd";
 import PlanningDetailContentCard from "../card/planningDetailContentCard";
 import TripTitle from "../card/tripTitle";
-import { useAppDispatch } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setPlanNumber } from "@/lib/features/planningSelection";
 
 const items: TabsProps["items"] = [
