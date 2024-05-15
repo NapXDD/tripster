@@ -1,9 +1,10 @@
 "use client";
 
+import { openModal } from "@/lib/features/modal";
 import { useAppSelector } from "@/lib/hooks";
 import { useEffect, useState } from "react";
 
-export type OverlayComponent = Record<string, JSX.Element>;
+export type OverlayComponent = Record<openModal, JSX.Element>;
 
 export default function OverLay({
   Component,
@@ -12,17 +13,29 @@ export default function OverLay({
 }) {
   const isOverLayOpen = useAppSelector((state) => state.overlay.value);
   const modal = useAppSelector((state) => state.modal.value);
-  const [keyModal, setKeyModal] = useState("");
+  const [keyModal, setKeyModal] = useState<openModal>("changepassword");
 
   useEffect(() => {
-    let keyModal = "";
+    let keyModal: openModal = "changepassword";
     for (let key in modal) {
-      if (modal[key] === true) {
-        keyModal = key;
+      const modalKey = key as openModal;
+      if (modal[modalKey] === true) {
+        keyModal = modalKey;
       }
     }
-    setKeyModal(keyModal.toLocaleLowerCase());
+    setKeyModal(keyModal);
   }, [modal]);
+
+  useEffect(() => {
+    const htmlElement = document.querySelector("html");
+    if (htmlElement) {
+      if (isOverLayOpen) {
+        htmlElement.style.overflow = "hidden";
+      } else {
+        htmlElement.style.overflow = "";
+      }
+    }
+  }, [isOverLayOpen]);
 
   return (
     <div
