@@ -16,7 +16,7 @@ export default function SelectTagButton({
   type: TagSelection;
 }) {
   const [isSelect, setIsSelect] = useState(false);
-  const tags = useAppSelector((state) => state.planning.value[type]);
+  const tags = useAppSelector((state) => state.createPlanning.value[type]);
   const dispatch = useAppDispatch();
 
   const handleSelect = (value: string) => {
