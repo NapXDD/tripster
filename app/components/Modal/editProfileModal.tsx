@@ -2,7 +2,7 @@ import Image from "next/image";
 import OverlayModal from "./overlayModal";
 import { avatar } from "@/utils/importer";
 import { EditOutlined } from "@ant-design/icons";
-import ProfileEditForm from "../form/profileEditForm/profileEditForm";
+import ProfileEditForm from "../form/profileEditForm";
 
 export default function EditProfileModal() {
   return (
