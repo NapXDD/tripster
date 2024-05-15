@@ -2,17 +2,23 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface ModalOpen {
-  value: Record<string, boolean>;
+  value: Record<openModal, boolean>;
 }
 
-export type openModal = "signin" | "signup" | "editprofile" | "forgotpassword";
+export type openModal =
+  | "signin"
+  | "signup"
+  | "editprofile"
+  | "forgotpassword"
+  | "changepassword";
 
 let initialState: ModalOpen = {
   value: {
-    SignIn: false,
-    SignUp: false,
-    EditProfile: false,
-    ForgotPassword: false,
+    signin: false,
+    signup: false,
+    editprofile: false,
+    forgotpassword: false,
+    changepassword: false,
   },
 };
 
@@ -22,10 +28,11 @@ export const modal = createSlice({
   reducers: {
     openModal: (state, action: PayloadAction<openModal>) => {
       for (let key in state.value) {
-        if (key.toLocaleLowerCase() !== action.payload) {
-          state.value[key] = false;
+        const modelKey = key as openModal;
+        if (modelKey.toLocaleLowerCase() !== action.payload) {
+          state.value[modelKey] = false;
         } else {
-          state.value[key] = true;
+          state.value[modelKey] = true;
         }
       }
     },
