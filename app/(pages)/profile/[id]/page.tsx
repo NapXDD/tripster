@@ -7,11 +7,11 @@ export default function Profile({ params }: { params: { id: string } }) {
       <ProfileCard userId={params.id} />
       <div className="flex flex-col gap-2">
         <div className="title">Các kế hoạch</div>
-        <div className="grid grid-cols-3 gap-4">
-          <TripCard id="1" />
-          <TripCard id="1" />
-          <TripCard id="1" />
-          <TripCard id="1" />
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <TripCard id="1" userId={params.id} />
+          <TripCard id="1" userId={params.id} />
+          <TripCard id="1" userId={params.id} />
+          <TripCard id="1" userId={params.id} />
         </div>
       </div>
     </div>
