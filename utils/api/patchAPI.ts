@@ -1,12 +1,10 @@
 import { BASE_URL } from "../importer";
 
-export default async function post<T, Y>(api: string, body: T): Promise<Y> {
-  const accessToken = localStorage.getItem("accessToken");
+export default async function patch<T, Y>(api: string, body: T): Promise<Y> {
   const response = await fetch(`${BASE_URL}${api}`, {
-    method: "POST",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(body),
   });
