@@ -1,16 +1,10 @@
 "use client";
 
 import { destination } from "@/app/type/destination";
+import { option } from "@/app/type/option";
 import { setDestination } from "@/lib/features/createPlanning";
-import { useAppDispatch } from "@/lib/hooks";
-import removeProvincePrefix from "@/utils/function/getProvinceList";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Select } from "antd";
-import { useEffect, useState } from "react";
-
-interface destinationSelector {
-  label: string;
-  value: string;
-}
 
 const filterOption = (
   input: string,
@@ -18,47 +12,34 @@ const filterOption = (
 ) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
 export default function DestinationInput({
-  destination,
+  destinations,
 }: {
-  destination: destination[];
+  destinations: option[];
 }) {
-  const [destinationData, setDestinationData] = useState<destination[]>([]);
-  const [option, setOption] = useState<destinationSelector[]>([]);
   const dispatch = useAppDispatch();
+  const destination = useAppSelector(
+    (state) => state.createPlanning.value.destination
+  );
 
   const handleOnChange = (idProvince: string) => {
-    const destinationID = destinationData.filter(
-      (item) => item.idProvince === idProvince
+    const destinationData = destinations.filter(
+      (item) => item.value === idProvince
     )[0];
-    dispatch(setDestination(destinationID.name));
+    const newDestination: destination = {
+      idProvince: destinationData.value,
+      name: destinationData.label,
+    };
+    dispatch(setDestination(newDestination));
   };
 
-  useEffect(() => {
-    //create option for antd select component
-    let option: destinationSelector[] = [];
-    destination.forEach((item) => {
-      let data: destinationSelector = {
-        label: item.name,
-        value: item.idProvince,
-      };
-      option.push(data);
-    });
-    setOption(option);
-
-    //remove province prefix to give data to backend
-    const provinceList = removeProvincePrefix(destination);
-    setDestinationData(provinceList);
-  }, []);
-
   return (
-    <div className="flex flex-col">
-      <Select
-        filterOption={filterOption}
-        options={option}
-        showSearch
-        placeholder="Chọn địa điểm"
-        onChange={handleOnChange}
-      />
-    </div>
+    <Select
+      value={destination.idProvince}
+      filterOption={filterOption}
+      options={destinations}
+      showSearch
+      placeholder="Chọn địa điểm"
+      onChange={handleOnChange}
+    />
   );
 }
