@@ -7,7 +7,7 @@ import { Tooltip } from "antd";
 export default function TransportationInput() {
   const dispatch = useAppDispatch();
   const transportation = useAppSelector(
-    (state) => state.planning.value.transportation
+    (state) => state.createPlanning.value.transportation
   );
 
   const handleTransportation = (vehicle: string) => {
@@ -19,11 +19,9 @@ export default function TransportationInput() {
       {icon.map((item, index) => (
         <Tooltip placement="bottom" title={item.title} key={index + item.title}>
           <button
-            className={
-              transportation === item.value
-                ? "p-2 bg-gray-400 rounded-md"
-                : "p-2"
-            }
+            className={`p-2 ${
+              transportation === item.value ? "bg-gray-400 rounded-lg" : ""
+            }`}
             onClick={() => handleTransportation(item.value)}
           >
             {item.icon}
