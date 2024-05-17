@@ -5,19 +5,32 @@ export default function Button({
   onClick,
   className,
   isLoading,
+  isDisable,
+  htmlType,
+  type,
 }: {
   children?: React.ReactNode;
   onClick?: () => void;
   className?: string;
   isLoading?: boolean;
+  isDisable?: boolean;
+  htmlType?: "button" | "submit" | "reset";
+  type?: "default" | "theme";
 }) {
   return (
     <button
-      disabled={isLoading}
-      className={`${isLoading ? "bgRedHover" : "bgRed"} text-white ${
-        className ? className : "p-1"
-      } min-w-[80px] rounded-3xl ${isLoading ? "" : "hover:bgRedHover"}`}
+      disabled={isDisable || isLoading}
+      className={
+        type === "theme"
+          ? `${isLoading ? "bgRedHover" : "bgRed"} text-white ${
+              className ? className : "p-1"
+            } min-w-[80px] rounded-3xl hover:bgRedHover`
+          : `${isLoading ? "bgWhiteHover" : "bg-white"} text-gray-800 ${
+              className ? className : "p-1"
+            } min-w-[80px] border rounded-3xl hover:bgWhiteHover`
+      }
       onClick={onClick}
+      type={htmlType}
     >
       {isLoading ? <LoadingOutlined /> : children}
     </button>
