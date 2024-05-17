@@ -19,6 +19,7 @@ export default function TransportationInput() {
       {icon.map((item, index) => (
         <Tooltip placement="bottom" title={item.title} key={index + item.title}>
           <button
+            type="button"
             className={`p-2 ${
               transportation === item.value ? "bg-gray-400 rounded-lg" : ""
             }`}
