@@ -1,7 +1,7 @@
 "use client";
 import { Tag, TagSelection } from "@/app/type/tag/tag";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SelectTagButton({
   tag,
@@ -15,8 +15,8 @@ export default function SelectTagButton({
   };
   type: TagSelection;
 }) {
-  const [isSelect, setIsSelect] = useState(false);
   const tags = useAppSelector((state) => state.createPlanning.value[type]);
+  const [isSelect, setIsSelect] = useState(tags.includes(tag.value));
   const dispatch = useAppDispatch();
 
   const handleSelect = (value: string) => {
@@ -31,9 +31,16 @@ export default function SelectTagButton({
     }
   };
 
+  useEffect(() => {
+    setIsSelect(tags.includes(tag.value));
+  }, [tags]);
+
   return (
     <button
-      className={isSelect ? "bg-gray-400 p-2 rounded-xl" : ""}
+      type="button"
+      className={`${
+        isSelect ? "bg-gray-400" : "bg-white"
+      } rounded-full border p-2 min-w-[80px]`}
       onClick={() => handleSelect(tag.value)}
     >
       {tag.title}
