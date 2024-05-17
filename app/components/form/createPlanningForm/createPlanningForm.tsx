@@ -12,29 +12,36 @@ import { openOverLay } from "@/lib/features/overlay";
 import { openModal } from "@/lib/features/modal";
 import Button from "../../button/button";
 import { useRouter } from "next/navigation";
+import { destination } from "@/app/type/destination";
+import { Form } from "antd";
 
-export default function CreatePlanningForm() {
-  const planning = useAppSelector((state) => state.planning.value);
+export default function CreatePlanningForm({
+  destinationData,
+}: {
+  destinationData: destination[];
+}) {
+  const newPlanning = useAppSelector((state) => state.createPlanning.value);
   const user = useAppSelector((state) => state.user.value.user);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const handleSubmit = () => {
     if (user.email !== "") {
-      console.log(planning);
+      console.log(newPlanning);
       router.push("/planningSelection");
     } else {
       dispatch(openOverLay(true));
       dispatch(openModal("signin"));
     }
   };
+
   return (
     <div className="w-[60%] bg-gray-200 p-5 rounded-lg flex flex-col gap-2">
       <FormItem label="Chọn phương tiện">
         <TransportationInput />
       </FormItem>
       <FormItem label="Điểm đến">
-        <DestinationInput />
+        <DestinationInput destination={destinationData} />
       </FormItem>
       <FormItem label="Ngân sách">
         <BudgetInput />
