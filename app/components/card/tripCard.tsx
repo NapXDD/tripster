@@ -4,17 +4,22 @@ import { avatar } from "@/utils/importer";
 import Image from "next/image";
 import DropDownButton from "../button/dropDownButton";
 import Link from "next/link";
+import { useAppSelector } from "@/lib/hooks";
 
 export default function TripCard({
   id,
   noDropDown,
+  userId,
 }: {
   id: string;
   noDropDown?: boolean;
+  userId?: string;
 }) {
+  const currentUser = useAppSelector((state) => state.user.value.user);
+
   return (
     <div className="flex flex-col gap-2 relative">
-      {!noDropDown ? (
+      {!noDropDown || currentUser.id === userId ? (
         <DropDownButton id={id} className="right-0 top-0 mr-2 mt-2 absolute" />
       ) : null}
       <Link href={`/planningDetail/${id}`}>
