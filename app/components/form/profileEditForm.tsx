@@ -1,9 +1,9 @@
 "use client";
 
 import { Input } from "antd";
-import Button from "../button/button";
 import FormItem from "./overlayForm";
 import { useAppSelector } from "@/lib/hooks";
+import CustomButton from "../button/button";
 
 export default function ProfileEditForm() {
   const currentUser = useAppSelector((state) => state.user.value.user);
@@ -13,7 +13,7 @@ export default function ProfileEditForm() {
       <FormItem label="Username">
         <Input defaultValue={currentUser.username} />
       </FormItem>
-      <Button>Chỉnh sửa</Button>
+      <CustomButton>Chỉnh sửa</CustomButton>
     </div>
   );
 }
