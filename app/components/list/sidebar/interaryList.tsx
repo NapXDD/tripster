@@ -19,9 +19,6 @@ export default function InteraryList() {
   useEffect(() => {
     let listDate: string[] = [];
     if (pathName === "/planningSelection") {
-      if (newPlan.startDate === "") {
-        router.replace("/");
-      }
       listDate = getListDate(newPlan.startDate, newPlan.endDate);
       dispatch(setListDate(listDate));
     } else {
