@@ -1,9 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import dayjs from "dayjs";
 
 interface CreatePlanningInit {
   value: {
-    destination: string;
+    destination: {
+      idProvince: string;
+      name: string;
+    };
     transportation: string;
     startDate: string;
     endDate: string;
@@ -16,11 +20,11 @@ interface CreatePlanningInit {
 
 let initialState: CreatePlanningInit = {
   value: {
-    destination: "",
-    transportation: "",
-    startDate: "",
-    endDate: "",
-    budget: 0,
+    destination: { name: "Thành phố Hà Nội", idProvince: "01" },
+    transportation: "car",
+    startDate: dayjs().format("DD/MM/YYYY"),
+    endDate: dayjs().add(1, "day").format("DD/MM/YYYY"),
+    budget: 1000000,
     activities: [],
     amentities: [],
     listDate: [],
@@ -31,7 +35,13 @@ export const createPlanning = createSlice({
   name: "createPlanning",
   initialState,
   reducers: {
-    setDestination: (state, action: PayloadAction<string>) => {
+    setDestination: (
+      state,
+      action: PayloadAction<{
+        idProvince: string;
+        name: string;
+      }>
+    ) => {
       state.value.destination = action.payload;
     },
     setTransportation: (state, action: PayloadAction<string>) => {
@@ -74,6 +84,18 @@ export const createPlanning = createSlice({
       const value = action.payload;
       state.value.listDate = value;
     },
+    resetCreatePlanning: (state) => {
+      state.value = {
+        destination: { name: "Thành phố Hà Nội", idProvince: "01" },
+        transportation: "car",
+        startDate: dayjs().format("DD/MM/YYYY"),
+        endDate: dayjs().add(1, "day").format("DD/MM/YYYY"),
+        budget: 1000000,
+        activities: [],
+        amentities: [],
+        listDate: [],
+      };
+    },
   },
 });
 
@@ -87,6 +109,7 @@ export const {
   removeActivities,
   removeAmentities,
   setListDate,
+  resetCreatePlanning,
 } = createPlanning.actions;
 
 export const selectCreatePlanning = (state: RootState) =>
