@@ -1,6 +1,6 @@
 import { BASE_URL } from "../importer";
 
-export default async function post<T>(api: string, body: T): Promise<Response> {
+export default async function post<T, Y>(api: string, body: T): Promise<Y> {
   const response = await fetch(`${BASE_URL}${api}`, {
     method: "POST",
     headers: {
@@ -13,5 +13,5 @@ export default async function post<T>(api: string, body: T): Promise<Response> {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  return response;
+  return response.json();
 }
