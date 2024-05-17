@@ -3,6 +3,7 @@ import { RootState } from "../store";
 
 interface CreatePlanningInit {
   value: {
+    destination: string;
     transportation: string;
     startDate: string;
     endDate: string;
@@ -15,6 +16,7 @@ interface CreatePlanningInit {
 
 let initialState: CreatePlanningInit = {
   value: {
+    destination: "",
     transportation: "",
     startDate: "",
     endDate: "",
@@ -29,6 +31,9 @@ export const createPlanning = createSlice({
   name: "createPlanning",
   initialState,
   reducers: {
+    setDestination: (state, action: PayloadAction<string>) => {
+      state.value.destination = action.payload;
+    },
     setTransportation: (state, action: PayloadAction<string>) => {
       state.value.transportation = action.payload;
     },
@@ -73,6 +78,7 @@ export const createPlanning = createSlice({
 });
 
 export const {
+  setDestination,
   setTransportation,
   setDate,
   setBudget,
