@@ -3,7 +3,7 @@
 import { useAppSelector } from "@/lib/hooks";
 import { avatar } from "@/utils/importer";
 import Image from "next/image";
-import OpenOverlayButon from "../button/openOverlayButton";
+import OpenOverlayButton from "../button/openOverlayButton";
 import { EditOutlined } from "@ant-design/icons";
 
 export default function ProfileCard({ userId }: { userId: string }) {
@@ -24,7 +24,7 @@ export default function ProfileCard({ userId }: { userId: string }) {
         <div className="font-bold">{currentUser.username}</div>
         <div>{currentUser.email}</div>
         {currentUser.id === userId ? (
-          <OpenOverlayButon
+          <OpenOverlayButton
             text="Chỉnh sửa"
             icon={<EditOutlined />}
             modal="editprofile"

@@ -12,7 +12,7 @@ export default function SignInButton() {
     dispatch(openModal("signin"));
   };
   return (
-    <Button className="px-5 py-2" onClick={handleOpenSignInModal}>
+    <Button type="theme" className="px-5 py-2" onClick={handleOpenSignInModal}>
       Đăng nhập
     </Button>
   );
