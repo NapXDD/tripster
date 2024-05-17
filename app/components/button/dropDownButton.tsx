@@ -11,14 +11,14 @@ export default function DropDownButton({
 }) {
   const items: MenuProps["items"] = [
     {
-      label: <Link href={`/planningDetail/${id}`}>View</Link>,
+      label: <Link href={`/planningDetail/${id}`}>Xem</Link>,
       key: "0",
     },
     {
       type: "divider",
     },
     {
-      label: "Delete",
+      label: "Xóa",
       key: "1",
     },
   ];
