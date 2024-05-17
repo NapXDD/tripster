@@ -6,7 +6,7 @@ import ListLayout from "./listLayout";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { setListDate } from "@/lib/features/createPlanning";
-import { getListDate } from "@/utils/getListDate";
+import { getListDate } from "@/utils/function/getListDate";
 
 export default function InteraryList() {
   const pathName = usePathname();
