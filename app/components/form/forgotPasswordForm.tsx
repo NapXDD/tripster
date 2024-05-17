@@ -92,7 +92,6 @@ export default function ForgotPasswordForm() {
 
   return (
     <Form
-      name="basic"
       className="w-full"
       autoComplete="off"
       labelCol={{ span: 4 }}
