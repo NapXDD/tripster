@@ -1,21 +1,8 @@
 "use client";
-
-import { openModal } from "@/lib/features/modal";
-import { openOverLay } from "@/lib/features/overlay";
-import { useAppDispatch } from "@/lib/hooks";
+import OpenOverlayButton from "./openOverlayButton";
 
 export default function SignUpButton() {
-  const dispatch = useAppDispatch();
-  const handleOpenSignUpModal = () => {
-    dispatch(openOverLay(true));
-    dispatch(openModal("signup"));
-  };
   return (
-    <button
-      className="border-2 rounded-full px-5 py-2"
-      onClick={handleOpenSignUpModal}
-    >
-      Đăng ký
-    </button>
+    <OpenOverlayButton text="Đăng ký" modal="signup" className="px-5 py-2" />
   );
 }
