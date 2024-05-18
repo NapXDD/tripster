@@ -3,6 +3,7 @@ import { setTransportation } from "@/lib/features/createPlanning";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { icon } from "@/utils/vehicalIcon";
 import { Tooltip } from "antd";
+import FormItem from "../../form/createPlanningForm/FormItem";
 
 export default function TransportationInput() {
   const dispatch = useAppDispatch();
@@ -15,20 +16,26 @@ export default function TransportationInput() {
   };
 
   return (
-    <div className="flex">
-      {icon.map((item, index) => (
-        <Tooltip placement="bottom" title={item.title} key={index + item.title}>
-          <button
-            type="button"
-            className={`p-2 ${
-              transportation === item.value ? "bg-gray-400 rounded-lg" : ""
-            }`}
-            onClick={() => handleTransportation(item.value)}
+    <FormItem label="Phương tiện" required>
+      <div className="flex">
+        {icon.map((item, index) => (
+          <Tooltip
+            placement="bottom"
+            title={item.title}
+            key={index + item.title}
           >
-            {item.icon}
-          </button>
-        </Tooltip>
-      ))}
-    </div>
+            <button
+              type="button"
+              className={`p-2 ${
+                transportation === item.value ? "bg-gray-400 rounded-lg" : ""
+              }`}
+              onClick={() => handleTransportation(item.value)}
+            >
+              {item.icon}
+            </button>
+          </Tooltip>
+        ))}
+      </div>
+    </FormItem>
   );
 }

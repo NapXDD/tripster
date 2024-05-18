@@ -5,6 +5,7 @@ import { option } from "@/app/type/option";
 import { setDestination } from "@/lib/features/createPlanning";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Select } from "antd";
+import FormItem from "../../form/createPlanningForm/FormItem";
 
 const filterOption = (
   input: string,
@@ -33,13 +34,15 @@ export default function DestinationInput({
   };
 
   return (
-    <Select
-      value={destination.idProvince}
-      filterOption={filterOption}
-      options={destinations}
-      showSearch
-      placeholder="Chọn địa điểm"
-      onChange={handleOnChange}
-    />
+    <FormItem label="Điểm đến" required>
+      <Select
+        value={destination.idProvince}
+        filterOption={filterOption}
+        options={destinations}
+        showSearch
+        placeholder="Chọn địa điểm"
+        onChange={handleOnChange}
+      />
+    </FormItem>
   );
 }
