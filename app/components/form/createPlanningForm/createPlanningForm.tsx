@@ -6,29 +6,20 @@ import SelectTagInput from "../../input/createPlanInput/selectTagInput";
 import TimeInput from "../../input/createPlanInput/timeInput";
 import { activitiesTags, amentitiesTags } from "@/utils/importer";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import FormItem from "./FormItem";
 import { openOverLay } from "@/lib/features/overlay";
 import { openModal } from "@/lib/features/modal";
 import { useRouter } from "next/navigation";
 import { Divider, Form } from "antd";
-import checkTransportation from "@/utils/validator/checkTransportation";
 import TransportationInput from "../../input/createPlanInput/transportationInput";
-import checkDestination from "@/utils/validator/checkDestination";
-import checkBudget from "@/utils/validator/checkBudget";
-import checkStartEndDate from "@/utils/validator/checkStartEndDate";
 import Button from "../../button/button";
 import { option } from "@/app/type/option";
-import {
-  resetCreatePlanning,
-  setTransportation,
-} from "@/lib/features/createPlanning";
+import { resetCreatePlanning } from "@/lib/features/createPlanning";
 
 export default function CreatePlanningForm({
   destinationData,
 }: {
   destinationData: option[];
 }) {
-  const newPlanning = useAppSelector((state) => state.createPlanning.value);
   const user = useAppSelector((state) => state.user.value.user);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -50,34 +41,22 @@ export default function CreatePlanningForm({
     <div className="w-[50%] bg-gray-200 p-5 rounded-lg flex flex-col gap-2">
       <Form onFinish={handleSubmit} autoComplete="off">
         <Form.Item name="transportation">
-          <FormItem label="Phương tiện" required>
-            <TransportationInput />
-          </FormItem>
+          <TransportationInput />
         </Form.Item>
         <Form.Item name="destination">
-          <FormItem label="Điểm đến" required>
-            <DestinationInput destinations={destinationData} />
-          </FormItem>
+          <DestinationInput destinations={destinationData} />
         </Form.Item>
         <Form.Item name="budget">
-          <FormItem label="Ngân sách" required>
-            <BudgetInput />
-          </FormItem>
+          <BudgetInput />
         </Form.Item>
         <Form.Item name="time">
-          <FormItem label="Thời gian" required>
-            <TimeInput />
-          </FormItem>
+          <TimeInput />
+        </Form.Item>
+        <Form.Item name="activities">
+          <SelectTagInput data={activitiesTags} type="activities" />
         </Form.Item>
         <Form.Item>
-          <FormItem label="Hoạt động">
-            <SelectTagInput data={activitiesTags} type="activities" />
-          </FormItem>
-        </Form.Item>
-        <Form.Item>
-          <FormItem label="Tiện ích, dịch vụ">
-            <SelectTagInput data={amentitiesTags} type="amentities" />
-          </FormItem>
+          <SelectTagInput data={amentitiesTags} type="amentities" />
         </Form.Item>
         <Divider />
         <div className="flex justify-end gap-2 pb-2">
