@@ -3,15 +3,21 @@
 import { useAppDispatch } from "@/lib/hooks";
 import { openOverLay } from "@/lib/features/overlay";
 import { openModal } from "@/lib/features/modal";
+import Button from "./button";
+import { type } from "@/app/type/button";
 
 export default function OpenOverlayButton({
   text,
   icon,
   modal,
+  type,
+  className,
 }: {
   text: string;
   icon?: JSX.Element;
   modal: openModal;
+  type?: type;
+  className?: string;
 }) {
   const dispatch = useAppDispatch();
 
@@ -21,13 +27,10 @@ export default function OpenOverlayButton({
   };
 
   return (
-    <button
-      className="bgRed rounded-3xl p-2 min-w-[80px] text-white hover:bgRedHover"
-      onClick={handleOpenOverLay}
-    >
+    <Button type={type} className={className} onClick={handleOpenOverLay}>
       <div className="flex gap-2 justify-center items-center">
         {icon} {text}
       </div>
-    </button>
+    </Button>
   );
 }
