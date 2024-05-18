@@ -37,7 +37,7 @@ export default function ChangePasswordForm() {
       <Form.Item<FieldType>
         label="ReEnter password"
         name="repassword"
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[{ required: true, message: "Please input your new password!" }]}
       >
         <Input.Password id="password2" />
       </Form.Item>

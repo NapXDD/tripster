@@ -28,6 +28,8 @@ export default function ProfileCard({ userId }: { userId: string }) {
             text="Chỉnh sửa"
             icon={<EditOutlined />}
             modal="editprofile"
+            type="theme"
+            className="px-4 py-2"
           />
         ) : (
           <></>

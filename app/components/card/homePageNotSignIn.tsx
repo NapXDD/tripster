@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function HomePageNotSignIn() {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-10">
       <div className="w-1/2">
-        <div className="title mb-2">
+        <div className="title mb-2 text-2xl">
           Lên kế hoạch thực hiện chuyến đi cùng Tripster
         </div>
         <div className="text-gray-600 mb-4">
