@@ -1,3 +1,4 @@
+import OTPModal from "@/app/components/Modal/OTPModal";
 import ChangePasswordModal from "@/app/components/Modal/changePasswordModal";
 import EditProfileModal from "@/app/components/Modal/editProfileModal";
 import ForgotPasswordModal from "@/app/components/Modal/forgotPasswordModal";
@@ -11,4 +12,5 @@ export const components: OverlayComponent = {
   editprofile: <EditProfileModal />,
   forgotpassword: <ForgotPasswordModal />,
   changepassword: <ChangePasswordModal />,
+  otp: <OTPModal />,
 };
