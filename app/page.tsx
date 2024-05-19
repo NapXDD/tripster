@@ -6,6 +6,7 @@ import HomePageSignIn from "./components/card/homePageSignIn";
 
 export default async function Home() {
   const user = await getUserSession();
+
   return (
     <div className="flex flex-col h-[100vh] justify-between">
       <Header user={user} />
