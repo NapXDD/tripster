@@ -8,11 +8,15 @@ import {
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
 } from "@/utils/importer";
+import { LoginDTO } from "@/utils/DTO/authenticate";
+import { login } from "@/utils/api/authenticate";
+import { error } from "@/utils/entities/response";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   session: {
     strategy: "jwt",
+    maxAge: 3600,
   },
   providers: [
     GoogleProvider({
@@ -26,12 +30,13 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
+      id: "credentials",
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Email", type: "email", placeholder: "Email" },
+        email: { label: "Email", type: "email", placeholder: "Email" },
         password: {
           label: "Password",
           type: "password",
@@ -46,16 +51,35 @@ export const authOptions: NextAuthOptions = {
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
         //doing backend here
-        const res = await fetch("/your/endpoint", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
-        const user = await res.json();
+        let data: LoginDTO = {
+          email: "",
+          password: "",
+        };
+        if (credentials) {
+          data = {
+            email: credentials.email,
+            password: credentials.password,
+          };
+        }
 
-        // If no error and we have user data, return it
-        if (res.ok && user) {
-          return user;
+        try {
+          const res = await login(data);
+          if (res.status === "200" || res.status === "201") {
+            const user = {
+              id: res.messageData.userId,
+              name: res.messageData.name,
+              email: res.messageData.email,
+              image: res.messageData.image,
+              active: res.messageData.active,
+              token: res.messageData.token,
+              expires: res.messageData.expiresIn,
+            };
+            // If no error and we have user data, return it
+            return user;
+          }
+        } catch (e) {
+          const error = e as error;
+          throw error;
         }
         // Return null if user data could not be retrieved
         return null;
@@ -64,11 +88,18 @@ export const authOptions: NextAuthOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    async signIn({ account, profile }) {
-      if (!profile?.email) {
+    async signIn({ user, account, profile }) {
+      if (!user) {
         throw new Error("No profile");
       }
       return true;
+    },
+    async jwt({ token, user, account, profile, trigger }) {
+      token.user = user;
+      return { ...token };
+    },
+    async session({ session, token }) {
+      return { ...session, ...token };
     },
   },
 };
