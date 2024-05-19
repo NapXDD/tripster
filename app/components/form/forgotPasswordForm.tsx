@@ -1,44 +1,31 @@
 "use client";
 
-import { emailRegex, numberRegex } from "@/utils/regex";
-import {
-  Button as ButtonAntd,
-  Form,
-  GetProp,
-  Input,
-  InputProps,
-  Space,
-} from "antd";
-import { useEffect, useState } from "react";
+import { emailRegex } from "@/utils/regex";
+import { Button as ButtonAntd, Form, Input, InputProps, Space } from "antd";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import { openModal } from "@/lib/features/modal";
 import Button from "../button/button";
 import checkOTP from "@/utils/validator/checkOTP";
-
-type FieldType = {
-  email: string;
-};
+import { InputOTP } from "../input/inputOTP";
+import { toast } from "react-toastify";
+import { generateOTP } from "@/utils/api/authenticate";
+import { error } from "@/utils/entities/response";
 
 export default function ForgotPasswordForm() {
   const [send, setSend] = useState<string | number>("Gửi OTP");
   const [isLoading, setIsLoading] = useState(false);
-  const [isDisable, setIsDisable] = useState(true);
+  const [isDisable, setIsDisable] = useState(false);
   const [email, setEmail] = useState("");
-  const [otp, setOTP] = useState<string>("");
-  const [nodeList, setNodeList] = useState<NodeListOf<HTMLInputElement>>();
   const dispatch = useAppDispatch();
 
   const handleWriteEmail: InputProps["onChange"] = (event) => {
     setEmail(event.target.value);
   };
 
-  const handleOTP: GetProp<typeof Input.OTP, "onKeyDown"> = (e) => {
-    const otpElement = document.querySelector("#otp ");
-    const inputElement = otpElement?.querySelectorAll("input");
-    console.log(inputElement);
-  };
+  const handleSubmit = async () => {
+    setIsLoading(true);
 
-  const handleSubmit = () => {
     dispatch(openModal("changepassword"));
   };
 
@@ -47,8 +34,13 @@ export default function ForgotPasswordForm() {
     setSend(300);
     try {
       //handle get otp here
+      const response = await generateOTP({ email: email });
+      if (response?.status === "200") {
+        toast.success("Đã gửi một OTP đến mail của bạn");
+      }
     } catch (e) {
-      console.log(e);
+      const error = e as error;
+      toast.error(error.message);
     }
     setTimeout(() => setIsLoading(false), 3000);
   };
@@ -62,13 +54,6 @@ export default function ForgotPasswordForm() {
     }
   }, [email]);
 
-  //custom helper text behavior
-  // useEffect(() => {
-  //   if (otp !== null) {
-  //     otpCustomRule(otp);
-  //   }
-  // }, [otp]);
-
   return (
     <Form
       className="w-full"
@@ -77,7 +62,7 @@ export default function ForgotPasswordForm() {
       wrapperCol={{ span: 20 }}
       onFinish={handleSubmit}
     >
-      <Form.Item<FieldType>
+      <Form.Item
         label="Email"
         style={{ marginBottom: "1.25rem" }}
         name="email"
@@ -98,17 +83,16 @@ export default function ForgotPasswordForm() {
         </Space.Compact>
       </Form.Item>
       <Form.Item
-        style={{ marginBottom: "1.25rem" }}
         label="OTP"
         name="otp"
         required
-        rules={[{ validator: () => checkOTP(otp) }]}
+        rules={[{ validator: checkOTP }]}
       >
-        <Input.OTP style={{ width: "100%" }} onKeyDown={handleOTP} />
+        <InputOTP />
       </Form.Item>
       <Form.Item className="flex justify-end">
         <Button type="theme" htmlType="submit">
-          Submit
+          Gửi
         </Button>
       </Form.Item>
     </Form>
