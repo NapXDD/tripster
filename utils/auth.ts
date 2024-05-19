@@ -1,5 +1,1 @@
-export const isAuthenticated = true;
-
-export const url = {
-    root: '/'
-}
+export let isAuthenticated = true;

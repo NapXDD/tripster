@@ -6,8 +6,13 @@ export interface SignUpEntity {
 }
 
 export interface LoginEntity {
+  userId: string;
+  name: string;
+  email: string;
+  image: string;
   token: string;
-  expireIn: string;
+  expiresIn: string;
+  active: number;
 }
 
 export interface GenerateOtpEntity {}
