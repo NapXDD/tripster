@@ -1,5 +1,5 @@
 "use client";
-import { Tag, TagSelection } from "@/app/type/tag/tag";
+import { Tag, TagSelection } from "@/app/types/tag/tag";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useEffect, useState } from "react";
 
