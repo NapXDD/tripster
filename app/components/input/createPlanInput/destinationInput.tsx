@@ -1,7 +1,7 @@
 "use client";
 
-import { destination } from "@/app/type/destination";
-import { option } from "@/app/type/option";
+import { destination } from "@/app/types/destination";
+import { option } from "@/app/types/option";
 import { setDestination } from "@/lib/features/createPlanning";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Select } from "antd";
