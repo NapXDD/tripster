@@ -4,7 +4,7 @@ import { useAppDispatch } from "@/lib/hooks";
 import { openOverLay } from "@/lib/features/overlay";
 import { openModal } from "@/lib/features/modal";
 import Button from "./button";
-import { type } from "@/app/type/button";
+import { type } from "@/app/types/button";
 
 export default function OpenOverlayButton({
   text,
