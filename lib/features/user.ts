@@ -18,7 +18,7 @@ interface Init {
 let initialState: Init = {
   value: {
     user: {
-      id: "1",
+      id: "",
       username: "",
       email: "",
       image: "",
@@ -31,11 +31,10 @@ export const user = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
-      let username = action.payload.email?.split("@")[0];
-      if (username && action.payload.email && action.payload.image) {
+      if (action.payload.email) {
         let currentUser: CurrentUser = {
-          id: "1",
-          username: username,
+          id: action.payload.id,
+          username: action.payload.name,
           email: action.payload.email,
           image: action.payload.image,
         };
@@ -44,7 +43,7 @@ export const user = createSlice({
     },
     removeUser: (state) => {
       let currentUser: CurrentUser = {
-        id: "1",
+        id: "",
         username: "",
         email: "",
         image: "",
