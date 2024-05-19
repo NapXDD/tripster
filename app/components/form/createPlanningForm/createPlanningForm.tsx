@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { Divider, Form } from "antd";
 import TransportationInput from "../../input/createPlanInput/transportationInput";
 import Button from "../../button/button";
-import { option } from "@/app/type/option";
+import { option } from "@/app/types/option";
 import { resetCreatePlanning } from "@/lib/features/createPlanning";
 
 export default function CreatePlanningForm({

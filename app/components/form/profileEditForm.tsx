@@ -3,7 +3,7 @@
 import { Input } from "antd";
 import FormItem from "./overlayForm";
 import { useAppSelector } from "@/lib/hooks";
-import CustomButton from "../button/button";
+import Button from "../button/button";
 
 export default function ProfileEditForm() {
   const currentUser = useAppSelector((state) => state.user.value.user);
@@ -13,7 +13,11 @@ export default function ProfileEditForm() {
       <FormItem label="Username">
         <Input defaultValue={currentUser.username} />
       </FormItem>
-      <CustomButton>Chỉnh sửa</CustomButton>
+      <div className="flex justify-end">
+        <Button className="px-4 py-2" type="theme">
+          Chỉnh sửa
+        </Button>
+      </div>
     </div>
   );
 }
