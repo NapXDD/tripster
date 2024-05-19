@@ -1,4 +1,4 @@
-import { Tag } from "@/app/type/tag/tag";
+import { Tag } from "@/app/types/tag/tag";
 
 export const googleLogo = "/thirdPartyLogo/Google.png";
 export const facebookLogo = "/thirdPartyLogo/Facebook.png";
@@ -8,8 +8,7 @@ export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 export const FACEBOOK_CLIENT_ID = process.env.FACEBOOK_CLIENT_ID!;
 export const FACEBOOK_CLIENT_SECRET = process.env.FACEBOOK_CLIENT_SECRET!;
-export const SERVER_BASE_URL =
-  "https://5c4d-2001-ee0-4fb1-ab80-51e8-a1c4-4547-193d.ngrok-free.app/v1/api";
+export const SERVER_BASE_URL = "https://bootcamp-3.onrender.com/v1/api";
 export const BASE_URL = "localhost:3000";
 
 export const activitiesTags: Tag[] = [
