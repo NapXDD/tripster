@@ -1,14 +1,14 @@
 "use client";
 import { User } from "next-auth";
-import SignInButton from "../button/signInButton";
-import SignUpButton from "../button/signUpButton";
 import Logo from "./Logo";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setUser } from "@/lib/features/user";
 import ProfileButton from "../button/profileButton";
+import OpenOverlayButton from "../button/openOverlayButton";
 
 export default function Header({ user }: { user: User }) {
+  console.log(user);
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.value.user);
 
@@ -27,8 +27,17 @@ export default function Header({ user }: { user: User }) {
             <ProfileButton currentUser={currentUser} />
           ) : (
             <>
-              <SignInButton />
-              <SignUpButton />
+              <OpenOverlayButton
+                text="Đăng nhập"
+                modal="signin"
+                type="theme"
+                className="px-5 py-2"
+              />
+              <OpenOverlayButton
+                text="Đăng ký"
+                modal="signup"
+                className="px-5 py-2"
+              />
             </>
           )}
         </div>
