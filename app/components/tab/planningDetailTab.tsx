@@ -22,16 +22,6 @@ const items: TabsProps["items"] = [
     label: "Plan 3",
     children: <PlanningDetailContentCard />,
   },
-  {
-    key: "4",
-    label: "Plan 4",
-    children: <PlanningDetailContentCard />,
-  },
-  {
-    key: "5",
-    label: "Plan 5",
-    children: <PlanningDetailContentCard />,
-  },
 ];
 
 export default function PlanningDetailTab() {
