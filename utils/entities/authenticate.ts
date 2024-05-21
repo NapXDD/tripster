@@ -7,7 +7,7 @@ export interface SignUpEntity {
 
 export interface LoginEntity {
   userId: string;
-  name: string;
+  username: string;
   email: string;
   image: string;
   token: string;
