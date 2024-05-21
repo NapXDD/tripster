@@ -46,7 +46,7 @@ export async function verifyOTP(body: VerifyOtpDTO) {
 }
 
 export async function changePassword(body: ChangePasswordDTO) {
-  const response = await post<ChangePasswordDTO, ChangePasswordEntity>(
+  const response = await postNoToken<ChangePasswordDTO, ChangePasswordEntity>(
     "/auth/change-password",
     body
   );

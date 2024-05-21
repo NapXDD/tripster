@@ -1,5 +1,7 @@
-export default async function get<T>(api: string): Promise<T> {
-  const accessToken = localStorage.getItem("accessToken");
+export default async function get<T>(
+  api: string,
+  accessToken: string
+): Promise<T> {
   const response = await fetch(`${api}`, {
     method: "GET",
     headers: {

@@ -1,18 +1,17 @@
 import { activityEntities } from "../entities/lableRecommendation";
 import { responseAPI } from "../entities/response";
-import get from "./getAPI";
+import { getNoToken } from "./getAPI";
 
-export async function getAccommodation() {}
-
-export async function getActivity() {
-  const response = await get<responseAPI<activityEntities>>(
-    "/lables/RcActivity"
+export async function getAmenities() {
+  const response = await getNoToken<responseAPI<activityEntities>>(
+    "/lables/RcAccommodation"
   );
-  if (response.status === "200") {
-    return response;
-  } else {
-    return Error(response.message);
-  }
+  return response;
 }
 
-
+export async function getActivity() {
+  const response = await getNoToken<responseAPI<activityEntities>>(
+    "/lables/RcActivity"
+  );
+  return response;
+}

@@ -1,16 +1,22 @@
-import { BASE_URL } from "../importer";
+import { SERVER_BASE_URL } from "../importer";
 
-export default async function patch<T, Y>(api: string, body: T): Promise<Y> {
-  const response = await fetch(`${BASE_URL}${api}`, {
+export default async function patch<Y>(
+  api: string,
+  body: FormData,
+  accessToken: string
+): Promise<Y> {
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${accessToken}`);
+  const response = await fetch(`${SERVER_BASE_URL}${api}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
+    headers: myHeaders,
+    body: body,
+    redirect: "follow",
   });
 
   if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const error = await response.json();
+    throw error;
   }
 
   return response.json();
