@@ -1,19 +1,20 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import dayjs from "dayjs";
+import { destination } from "@/app/types/destination";
+import { Tag } from "@/app/types/tag/tag";
+import { transportation } from "@/app/types/transportation";
 
 interface CreatePlanningInit {
   value: {
-    destination: {
-      idProvince: string;
-      name: string;
-    };
-    transportation: string;
+    destination: destination;
+    startPoint: destination;
+    transportation: transportation;
     startDate: string;
     endDate: string;
     budget: number;
-    activities: string[];
-    amentities: string[];
+    activities: Tag[];
+    amentities: Tag[];
     listDate: string[];
   };
 }
@@ -21,10 +22,11 @@ interface CreatePlanningInit {
 let initialState: CreatePlanningInit = {
   value: {
     destination: { name: "Thành phố Hà Nội", idProvince: "01" },
-    transportation: "car",
+    startPoint: { name: "Thành phố Hồ Chí Minh", idProvince: "79" },
+    transportation: "coach",
     startDate: dayjs().format("DD/MM/YYYY"),
     endDate: dayjs().add(1, "day").format("DD/MM/YYYY"),
-    budget: 1000000,
+    budget: 3000000,
     activities: [],
     amentities: [],
     listDate: [],
@@ -44,7 +46,16 @@ export const createPlanning = createSlice({
     ) => {
       state.value.destination = action.payload;
     },
-    setTransportation: (state, action: PayloadAction<string>) => {
+    setStartPoint: (
+      state,
+      action: PayloadAction<{
+        idProvince: string;
+        name: string;
+      }>
+    ) => {
+      state.value.startPoint = action.payload;
+    },
+    setTransportation: (state, action: PayloadAction<transportation>) => {
       state.value.transportation = action.payload;
     },
     setDate: (state, action: PayloadAction<string[]>) => {
@@ -54,28 +65,38 @@ export const createPlanning = createSlice({
     setBudget: (state, action: PayloadAction<number>) => {
       state.value.budget = action.payload;
     },
-    setActivities: (state, action: PayloadAction<string>) => {
+    setActivities: (state, action: PayloadAction<Tag>) => {
       const value = action.payload;
       if (state.value.activities.length < 5) {
         state.value.activities.push(value);
       }
     },
-    removeActivities: (state, action: PayloadAction<string>) => {
+    removeActivities: (state, action: PayloadAction<Tag>) => {
       const value = action.payload;
-      const valueIndex = state.value.activities.indexOf(value);
+      let valueIndex = -1;
+      state.value.activities.forEach((item, index) => {
+        if (item.id === value.id) {
+          valueIndex = index;
+        }
+      });
       if (valueIndex !== -1) {
         state.value.activities.splice(valueIndex, 1);
       }
     },
-    setAmentities: (state, action: PayloadAction<string>) => {
+    setAmentities: (state, action: PayloadAction<Tag>) => {
       const value = action.payload;
       if (state.value.amentities.length < 5) {
         state.value.amentities.push(value);
       }
     },
-    removeAmentities: (state, action: PayloadAction<string>) => {
+    removeAmentities: (state, action: PayloadAction<Tag>) => {
       const value = action.payload;
-      const valueIndex = state.value.amentities.indexOf(value);
+      let valueIndex = -1;
+      state.value.amentities.forEach((item, index) => {
+        if (item.id === value.id) {
+          valueIndex = index;
+        }
+      });
       if (valueIndex !== -1) {
         state.value.amentities.splice(valueIndex, 1);
       }
@@ -87,10 +108,11 @@ export const createPlanning = createSlice({
     resetCreatePlanning: (state) => {
       state.value = {
         destination: { name: "Thành phố Hà Nội", idProvince: "01" },
-        transportation: "car",
+        startPoint: { name: "Thành phố Hồ Chí Minh", idProvince: "79" },
+        transportation: "coach",
         startDate: dayjs().format("DD/MM/YYYY"),
         endDate: dayjs().add(1, "day").format("DD/MM/YYYY"),
-        budget: 1000000,
+        budget: 3000000,
         activities: [],
         amentities: [],
         listDate: [],
@@ -110,6 +132,7 @@ export const {
   removeAmentities,
   setListDate,
   resetCreatePlanning,
+  setStartPoint,
 } = createPlanning.actions;
 
 export const selectCreatePlanning = (state: RootState) =>
