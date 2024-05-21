@@ -3,22 +3,24 @@ import CloseButton from "../button/closeButton";
 export default function OverlayModal({
   children,
   title,
+  onCloseClick,
 }: {
   children?: React.ReactNode;
   title?: string;
+  onCloseClick?: () => void;
 }) {
   return (
     <div className="min-w[200px] bg-white rounded-xl w-full md:w-auto lg:w-auto">
       {title ? (
         <div className="flex mt-3 justify-between items-center relative w-full">
           <div className="absolute right-0 mr-2">
-            <CloseButton />
+            <CloseButton onClick={onCloseClick} />
           </div>
           <div className="w-full flex justify-center">{title} </div>
         </div>
       ) : (
         <div className="flex justify-end m-2">
-          <CloseButton />
+          <CloseButton onClick={onCloseClick} />
         </div>
       )}
 
