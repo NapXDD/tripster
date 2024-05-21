@@ -4,10 +4,13 @@ import { openOverLay } from "@/lib/features/overlay";
 import { useAppDispatch } from "@/lib/hooks";
 import { CloseOutlined } from "@ant-design/icons";
 
-export default function CloseButton() {
+export default function CloseButton({ onClick }: { onClick?: () => void }) {
   const dispatch = useAppDispatch();
 
   const handleClose = () => {
+    if (onClick !== undefined) {
+      onClick();
+    }
     dispatch(openOverLay(false));
   };
 
