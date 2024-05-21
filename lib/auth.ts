@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import { Account, NextAuthOptions, Profile, Session, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -10,10 +10,10 @@ import {
 } from "@/utils/importer";
 import { LoginDTO } from "@/utils/DTO/authenticate";
 import { login } from "@/utils/api/authenticate";
-import { error } from "@/utils/entities/response";
+import { JWT } from "next-auth/jwt";
+import { AdapterUser } from "next-auth/adapters";
 
 export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
   session: {
     strategy: "jwt",
     maxAge: 3600,
@@ -62,44 +62,66 @@ export const authOptions: NextAuthOptions = {
           };
         }
 
-        try {
-          const res = await login(data);
-          if (res.status === "200" || res.status === "201") {
-            const user = {
-              id: res.messageData.userId,
-              name: res.messageData.name,
-              email: res.messageData.email,
-              image: res.messageData.image,
-              active: res.messageData.active,
-              token: res.messageData.token,
-              expires: res.messageData.expiresIn,
-            };
-            // If no error and we have user data, return it
-            return user;
-          }
-        } catch (e) {
-          const error = e as error;
-          throw error;
+        const res = await login(data);
+        if (res.status === "200" || res.status === "201") {
+          const user = {
+            id: res.messageData.userId,
+            name: res.messageData.username,
+            email: res.messageData.email,
+            image: res.messageData.image,
+            active: res.messageData.active,
+            token: res.messageData.token,
+            expires: res.messageData.expiresIn,
+          };
+          // If no error and we have user data, return it
+          return user;
+        } else {
+          // Return null if user data could not be retrieved
+          return null;
         }
-        // Return null if user data could not be retrieved
-        return null;
       },
     }),
     // ...add more providers here
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user }) {
       if (!user) {
         throw new Error("No profile");
       }
       return true;
     },
-    async jwt({ token, user, account, profile, trigger }) {
-      token.user = user;
+    async jwt({
+      token,
+      user,
+      trigger,
+      session,
+      account,
+      profile,
+      isNewUser,
+    }: {
+      token: JWT;
+      user: User | AdapterUser;
+      trigger?: "signIn" | "signUp" | "update" | undefined;
+      session?: any;
+      account: Account | null;
+      profile?: Profile | undefined;
+      isNewUser?: boolean | undefined;
+    }) {
+      if (trigger === "update" && session?.newUser) {
+        token.user = session.newUser;
+        return { ...token };
+      } else {
+        if (user) {
+          token.user = user;
+        }
+      }
       return { ...token };
     },
-    async session({ session, token }) {
-      return { ...session, ...token };
+    async session({ session, token }: { session: Session; token: JWT }) {
+      if (session.user !== undefined && session.user !== null) {
+        session.user = token.user;
+      }
+      return { ...session };
     },
   },
 };
