@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { icon } from "@/utils/vehicalIcon";
 import { Tooltip } from "antd";
 import FormItem from "../../form/createPlanningForm/FormItem";
+import { transportation } from "@/app/types/transportation";
 
 export default function TransportationInput() {
   const dispatch = useAppDispatch();
@@ -11,7 +12,7 @@ export default function TransportationInput() {
     (state) => state.createPlanning.value.transportation
   );
 
-  const handleTransportation = (vehicle: string) => {
+  const handleTransportation = (vehicle: transportation) => {
     dispatch(setTransportation(vehicle));
   };
 

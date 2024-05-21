@@ -10,9 +10,11 @@ import FormItem from "../../form/createPlanningForm/FormItem";
 export default function SelectTagInput({
   data,
   type,
+  note,
 }: {
   data: Tag[];
   type: TagSelection;
+  note?: string;
 }) {
   const [handleFunc, setHandleFunc] = useState<handleSelectFunc>({
     setFunc: () => {},
@@ -28,11 +30,11 @@ export default function SelectTagInput({
   }, []);
 
   return (
-    <FormItem label="Tiện ích, dịch vụ">
-      <div className="flex flex-wrap gap-2">
+    <FormItem label="Tiện ích, dịch vụ" note={note}>
+      <div className="flex justify-center flex-wrap gap-2">
         {data.map((item, index) => (
           <SelectTagButton
-            key={index + item.title}
+            key={index + item.name}
             tag={item}
             handleFunc={handleFunc}
             type={type}

@@ -16,7 +16,7 @@ const disabledDate: RangePickerProps["disabledDate"] = (current) => {
 export default function TimeInput() {
   const dispatch = useAppDispatch();
   const newPlan = useAppSelector((state) => state.createPlanning.value);
-  console.log(newPlan);
+
   const handleValue: RangePickerProps["onChange"] = (dates) => {
     if (dates) {
       if (dates[0] && dates[1]) {
