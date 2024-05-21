@@ -1,21 +1,16 @@
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
+import { transportationIcon } from "@/app/types/transportation";
 
-export const icon = [
+export const icon: transportationIcon[] = [
   {
-    title: "Ô tô",
-    icon: <DirectionsCarIcon />,
-    value: "car",
-  },
-  {
-    title: "Xe buýt",
+    title: "Xe khách",
     icon: <DirectionsBusIcon />,
-    value: "bus",
+    value: "coach",
   },
   {
     title: "Máy bay",
     icon: <AirplanemodeActiveIcon />,
-    value: "plane",
+    value: "flight",
   },
 ];
