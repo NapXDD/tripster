@@ -1,6 +1,5 @@
 "use client";
 
-import { toast } from "react-toastify";
 import { openModal } from "@/lib/features/modal";
 import { generateOTP, signup } from "@/utils/api/authenticate";
 import { setEmail } from "@/lib/features/authenticate";
@@ -9,7 +8,8 @@ import { signIn } from "next-auth/react";
 import { Button, Form, FormProps, Input } from "antd";
 import { useAppDispatch } from "@/lib/hooks";
 import { Fragment, useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type FieldType = {
   email: string;
@@ -46,6 +46,8 @@ export default function SignInForm() {
         if (response.status === "200" || response.status === "201") {
           dispatch(openModal("otp"));
         }
+      } else {
+        toast.error(`$HTTP Error ${response?.status}: ${response?.error}`);
       }
     }
     setIsLoading(false);
