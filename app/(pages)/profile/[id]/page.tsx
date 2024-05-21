@@ -1,9 +1,10 @@
 import ProfileCard from "@/app/components/card/profileCard";
 import TripCard from "@/app/components/card/tripCard";
+import { getUserInfo } from "@/utils/api/user";
 
-export default function Profile({ params }: { params: { id: string } }) {
+export default async function Profile({ params }: { params: { id: string } }) {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 flex-col items-center sm:justify-center md:lg:flex-row md:lg:justify-normal md:lg:items-start md:lg:w-auto">
       <ProfileCard userId={params.id} />
       <div className="flex flex-col gap-2">
         <div className="title">Các kế hoạch</div>
