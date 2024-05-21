@@ -16,10 +16,13 @@ export default function SelectTagButton({
   type: TagSelection;
 }) {
   const tags = useAppSelector((state) => state.createPlanning.value[type]);
-  const [isSelect, setIsSelect] = useState(tags.includes(tag.value));
+  const [isSelect, setIsSelect] = useState(
+    //check if tags contain tag
+    !!tags.filter((item) => item.id === tag.id)[0]
+  );
   const dispatch = useAppDispatch();
 
-  const handleSelect = (value: string) => {
+  const handleSelect = (value: Tag) => {
     if (isSelect === false) {
       if (tags.length < 5) {
         setIsSelect(true);
@@ -32,7 +35,7 @@ export default function SelectTagButton({
   };
 
   useEffect(() => {
-    setIsSelect(tags.includes(tag.value));
+    setIsSelect(!!tags.filter((item) => item.id === tag.id)[0]);
   }, [tags]);
 
   return (
@@ -41,9 +44,9 @@ export default function SelectTagButton({
       className={`${
         isSelect ? "bg-gray-400" : "bg-white"
       } rounded-full border p-2 min-w-[80px]`}
-      onClick={() => handleSelect(tag.value)}
+      onClick={() => handleSelect(tag)}
     >
-      {tag.title}
+      {tag.name}
     </button>
   );
 }
