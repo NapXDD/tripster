@@ -1,6 +1,5 @@
 "use client";
 
-import { emailRegex } from "@/utils/regex";
 import { Button as ButtonAntd, Form, Input, InputProps, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "@/lib/hooks";
@@ -11,6 +10,7 @@ import { InputOTP } from "../input/inputOTP";
 import { toast } from "react-toastify";
 import { generateOTP } from "@/utils/api/authenticate";
 import { error } from "@/utils/entities/response";
+import { emailRegex } from "@/utils/function/regex";
 
 export default function ForgotPasswordForm() {
   const [send, setSend] = useState<string | number>("Gửi OTP");

@@ -1,4 +1,5 @@
 import { DetailPlans, activity, hotel } from "@/app/types/plan";
+import { transport } from "@/app/types/transportation";
 
 export type checkValidFlightEntity = boolean;
 
@@ -10,7 +11,7 @@ export interface CreatePlanEntity {
   detailPlans: DetailPlans;
 }
 
-interface plan {
+export interface plan {
   id: number;
   budget: number;
   id_user: number;
@@ -27,22 +28,17 @@ export interface GetUserPlansEntity {
   plan: plan[];
 }
 
-interface ViewRecent {
-  id: number;
-  start_point: string;
-  end_point: string;
-  start_day: string;
-  end_day: string;
+export type ViewRecentEntity = GetUserPlansEntity;
+
+export interface SavePlanEntity {
+  planId: string;
 }
-
-export type ViewRecentEntity = ViewRecent[];
-
-export interface SavePlanEntity {}
 
 export interface PlanDetailEntity {
   plan: plan;
   activity: activity[];
   accommodation: hotel[];
+  transport: transport;
 }
 
 export interface DeletePlanEntity {}

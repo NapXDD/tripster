@@ -34,7 +34,7 @@ interface carbon_emissions {
   difference_percent: number;
 }
 
-interface transportTypeFlight {
+export interface transportTypeFlight {
   flights: flights;
   total_duration: number;
   carbon_emissions: carbon_emissions;
@@ -42,11 +42,11 @@ interface transportTypeFlight {
   type: string;
   airline_logo: string;
   departure_token: string;
-  total: number;
 }
 
-interface transportTypeCoach {
-  minPrice: number;
+export interface transportTypeCoach {
+  id: string;
+  price: number;
   name: string;
   total_duration: number;
 }

@@ -14,7 +14,7 @@ import {
   ViewRecentEntity,
   checkValidFlightEntity,
 } from "../entities/plan";
-import get from "./getAPI";
+import get, { getNoToken } from "./getAPI";
 import post from "./postAPI";
 
 export async function checkValidFlight(
@@ -38,8 +38,10 @@ export async function createPlan(body: CreatePlanDTO, accessToken: string) {
   return response;
 }
 
-export async function getUserPlans(accessToken: string) {
-  const response = await get<GetUserPlansEntity>("/plan/user", accessToken);
+export async function getUserPlans(userId: string) {
+  const response = await getNoToken<GetUserPlansEntity>(
+    `/plan/user/${userId}`
+  );
   return response;
 }
 

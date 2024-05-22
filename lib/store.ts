@@ -6,6 +6,8 @@ import userReducer from "./features/user";
 import createPlanningReducer from "./features/createPlanning";
 import planningReducer from "./features/planningDetail";
 import planningSelectionReducer from "./features/planningSelection";
+import multiplanSelectReducer from "./features/multiplan";
+import rawPlanDataReducer from "./features/rawCreatePlan";
 
 export const makeStore = () => {
   return configureStore({
@@ -17,6 +19,8 @@ export const makeStore = () => {
       createPlanning: createPlanningReducer,
       planning: planningReducer,
       planningSelection: planningSelectionReducer,
+      multiplanSelect: multiplanSelectReducer,
+      rawPlanData: rawPlanDataReducer,
     },
   });
 };

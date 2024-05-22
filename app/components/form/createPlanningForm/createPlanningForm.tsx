@@ -22,6 +22,10 @@ import { checkValidFlight, createPlan } from "@/utils/api/plan";
 import removeProvincePrefix from "@/utils/function/getProvince";
 import { toast } from "react-toastify";
 import { CreatePlanDTO } from "@/utils/DTO/plan";
+import dayjs from "dayjs";
+import { setMultiplan } from "@/lib/features/multiplan";
+import { setupPlan } from "@/utils/function/setupPlan";
+import { setRawPlan } from "@/lib/features/rawCreatePlan";
 
 export default function CreatePlanningForm({
   destinationData,
@@ -53,8 +57,10 @@ export default function CreatePlanningForm({
           //modify data here
           const data: CreatePlanDTO = {
             budget: newPlan.budget,
-            start_day: newPlan.startDate,
-            end_day: newPlan.endDate,
+            start_day: dayjs(newPlan.startDate, "DD/MM/YYYY").format(
+              "YYYY-MM-DD"
+            ),
+            end_day: dayjs(newPlan.endDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
             end_point: removeProvincePrefix(newPlan.destination.name),
             start_point: removeProvincePrefix(newPlan.startPoint.name),
             type_transport: newPlan.transportation,
@@ -63,12 +69,13 @@ export default function CreatePlanningForm({
           };
           const res = await createPlan(data, currentUser.token);
           if (res.status === "200") {
-            dispatch(resetCreatePlanning());
+            dispatch(setRawPlan(res));
+            const plans = setupPlan(res);
+            dispatch(setMultiplan(plans));
             router.push("/planningSelection");
           }
         }
       } catch (e) {
-        console.log(e);
         toast.error(
           `Không có chuyến bay từ ${newPlan.startPoint.name} tới ${newPlan.destination.name}`
         );

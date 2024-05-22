@@ -7,11 +7,15 @@ import { setUser } from "@/lib/features/user";
 import ProfileButton from "../button/profileButton";
 import OpenOverlayButton from "../button/openOverlayButton";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { testData } from "@/utils/importer";
+import { setupPlan } from "@/utils/function/setupPlan";
 
 export default function Header({ user }: { user?: User }) {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.value.user);
   const { data: session, status, update } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     if (user) {
@@ -32,6 +36,10 @@ export default function Header({ user }: { user?: User }) {
     const interval = setInterval(() => update(), 1000 * 60 * 60);
     return () => clearInterval(interval);
   }, [update]);
+
+  useEffect(() => {
+    setupPlan(testData);
+  }, []);
 
   // Listen for when the page is visible, if the user switches tabs
   // and makes our tab visible again, re-fetch the session

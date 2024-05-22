@@ -1,10 +1,10 @@
 "use client";
 
 import { openModal } from "@/lib/features/modal";
-import { generateOTP, signup } from "@/utils/api/authenticate";
+import { generateOTP, login, signup } from "@/utils/api/authenticate";
 import { setEmail } from "@/lib/features/authenticate";
 import { openOverLay } from "@/lib/features/overlay";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { Button, Form, FormProps, Input } from "antd";
 import { useAppDispatch } from "@/lib/hooks";
 import { Fragment, useState } from "react";
@@ -40,6 +40,7 @@ export default function SignInForm() {
     if (response?.ok) {
       router.refresh();
       dispatch(openOverLay(false));
+      setIsLoading(false);
     } else {
       if (response?.status === 401) {
         const response = await generateOTP({ email: values.email });
@@ -49,8 +50,8 @@ export default function SignInForm() {
       } else {
         toast.error(`$HTTP Error ${response?.status}: ${response?.error}`);
       }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
