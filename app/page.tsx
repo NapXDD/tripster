@@ -14,7 +14,7 @@ export default async function Home() {
           {session?.user === undefined ? (
             <HomePageNotSignIn />
           ) : (
-            <HomePageSignIn />
+            <HomePageSignIn userId={session.user.id} token={session.user.token}/>
           )}
         </div>
       </main>
