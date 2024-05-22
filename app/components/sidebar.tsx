@@ -1,5 +1,7 @@
 import BudgetList from "./list/sidebar/budgetList";
+import HotelList from "./list/sidebar/hotelList";
 import InteraryList from "./list/sidebar/interaryList";
+import TransportationList from "./list/sidebar/transportationList";
 
 export default function SideBar() {
   return (
@@ -7,6 +9,8 @@ export default function SideBar() {
       <div className="flex flex-col m-2 mt-10">
         <InteraryList />
         <BudgetList />
+        <HotelList />
+        <TransportationList />
       </div>
     </div>
   );
