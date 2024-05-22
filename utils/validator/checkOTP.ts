@@ -1,5 +1,5 @@
 import { RuleObject } from "antd/es/form";
-import { numberRegex } from "../regex";
+import { numberRegex } from "../function/regex";
 
 export default function checkOTP(_: RuleObject, otp: string) {
   if (otp === "" || otp === undefined) {
