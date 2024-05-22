@@ -1,7 +1,15 @@
 import Link from "next/link";
 import TripCard from "./tripCard";
+import { topFourRecent } from "@/utils/api/plan";
 
-export default function HomePageSignIn() {
+export default async function HomePageSignIn({
+  userId,
+  token,
+}: {
+  userId: string;
+  token: string;
+}) {
+  const res = await topFourRecent(token);
   return (
     <div className="min-h-[calc(100vh-10rem)] w-full">
       <div className="flex flex-col mt-4 gap-4">
@@ -15,10 +23,14 @@ export default function HomePageSignIn() {
           </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          <TripCard id="1" noDropDown />
-          <TripCard id="1" noDropDown />
-          <TripCard id="1" noDropDown />
-          <TripCard id="1" noDropDown />
+          {res.messageData.plan.map((item, index) => (
+            <TripCard
+              key={item.id + index}
+              data={item}
+              userId={userId}
+              noDropDown
+            />
+          ))}
         </div>
       </div>
     </div>

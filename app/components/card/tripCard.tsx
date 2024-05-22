@@ -5,13 +5,15 @@ import Image from "next/image";
 import DropDownButton from "../button/dropDownButton";
 import Link from "next/link";
 import { useAppSelector } from "@/lib/hooks";
+import { ViewRecentEntity, plan } from "@/utils/entities/plan";
+import dayjs from "dayjs";
 
 export default function TripCard({
-  id,
+  data,
   noDropDown,
   userId,
 }: {
-  id: string;
+  data: plan;
   noDropDown?: boolean;
   userId?: string;
 }) {
@@ -20,20 +22,26 @@ export default function TripCard({
   return (
     <div className="flex flex-col gap-2 relative">
       {!noDropDown || currentUser.id === userId ? (
-        <DropDownButton id={id} className="right-0 top-0 mr-2 mt-2 absolute" />
+        <DropDownButton
+          id={data.id.toString()}
+          className="right-0 top-0 mr-2 mt-2 absolute"
+        />
       ) : null}
-      <Link href={`/planningDetail/${id}`}>
-        <div className="flex flex-col justify-end">
-          <Image
-            src={avatar}
-            alt="trip card image"
-            width={500}
-            height={300}
-            className="w-full rounded-lg"
-            objectFit="cover"
-          />
-          <div className="text-sm">Chuyến đi tới HCM</div>
-          <div className="text-gray-600 text-sm">Apr1-May7</div>
+      <Link href={`/planningDetail/${data.id}-${userId}`}>
+        <div className="flex flex-col justify-end gap-1">
+          <div className="w-full rounded-lg min-h-[150px] bg-blue-200 flex items-center justify-center bg-custom-gradient">
+            <div>Chuyến đi tới {data.destination}</div>
+          </div>
+          <div className="text-sm">Chuyến đi tới {data.destination}</div>
+          <div className="text-gray-600 text-sm">
+            {dayjs(data.start_day, "YYYY-MM-DDT17:hh:mm.sssZ").format(
+              "DD/MM/YYYY"
+            )}
+            -
+            {dayjs(data.end_day, "YYYY-MM-DDT17:hh:mm.sssZ").format(
+              "DD/MM/YYYY"
+            )}
+          </div>
         </div>
       </Link>
     </div>

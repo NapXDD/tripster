@@ -8,7 +8,7 @@ export default function ActivityCard({
   date,
   keyId,
 }: {
-  content: string | React.ReactNode;
+  content: JSX.Element;
   date: string;
   keyId: string;
 }) {
@@ -24,11 +24,7 @@ export default function ActivityCard({
         <RotateButton handleVisible={handleSetVisible} open />
         <div className="title">{date}</div>
       </div>
-      {visible ? (
-        <div className="ml-[calc(16px+0.5rem)]">{content}</div>
-      ) : (
-        <></>
-      )}
+      {visible ? <div>{content}</div> : <></>}
     </div>
   );
 }
