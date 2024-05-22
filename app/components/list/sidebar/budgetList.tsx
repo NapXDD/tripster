@@ -6,7 +6,7 @@ export default function BudgetList() {
     <ListLayout title="Ngân sách" id="budget">
       <ListItem>
         <a href="#budget" className="mt-5 font-normal">
-          View
+          Xem
         </a>
       </ListItem>
     </ListLayout>

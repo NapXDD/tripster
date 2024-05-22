@@ -11,15 +11,32 @@ interface activityCardData {
 }
 
 export default function ItineraryListCard({ id }: { id?: string }) {
-  const planNumber = useAppSelector((state) => state.planningSelection.value);
+  const planNumber = useAppSelector(
+    (state) => state.planningSelection.value.planNumber
+  );
   const newPlan = useAppSelector((state) => state.createPlanning.value);
+  const multiplan = useAppSelector(
+    (state) => state.multiplanSelect.value.multiplan
+  );
   const [data, setData] = useState<activityCardData[]>([]);
 
+  //if id is not define, it mean this list is from create plan, then we set the create planning reducer
   useEffect(() => {
     if (id === undefined) {
       let dataList: activityCardData[] = [];
       newPlan.listDate.forEach((date) => {
-        let data = { value: <DestinationCard data={null} />, date: date };
+        let data = {
+          value: (
+            <DestinationCard
+              data={
+                multiplan === null
+                  ? null
+                  : multiplan[planNumber].activities[date]
+              }
+            />
+          ),
+          date: date,
+        };
         dataList.push(data);
       });
       setData(dataList);
