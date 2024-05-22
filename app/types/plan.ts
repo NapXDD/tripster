@@ -26,6 +26,7 @@ export interface DetailPlan {
   activities: activity[];
   hotel: hotel;
   transport: transport;
+  total: number;
 }
 
 export type DetailPlans = DetailPlan[];
