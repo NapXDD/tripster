@@ -38,15 +38,16 @@ export async function createPlan(body: CreatePlanDTO, accessToken: string) {
   return response;
 }
 
-export async function getUserPlans(userId: string) {
+export async function getUserPlans(userId: string, tag?: string) {
   const response = await getNoToken<GetUserPlansEntity>(
-    `/plan/user/${userId}`
+    `/plan/user/${userId}`,
+    tag
   );
   return response;
 }
 
 export async function topFourRecent(accessToken: string) {
-  const response = await get<ViewRecentEntity>("plan/viewRecent", accessToken);
+  const response = await get<ViewRecentEntity>("/plan/viewRecent", accessToken);
   return response;
 }
 

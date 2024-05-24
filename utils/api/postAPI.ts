@@ -4,7 +4,8 @@ import { SERVER_BASE_URL } from "../importer";
 export default async function post<T, Y>(
   api: string,
   body: T,
-  accessToken: string
+  accessToken: string,
+  tag?: NextFetchRequestConfig | undefined
 ): Promise<responseAPI<Y>> {
   const response = await fetch(`${SERVER_BASE_URL}${api}`, {
     method: "POST",
@@ -13,6 +14,7 @@ export default async function post<T, Y>(
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(body),
+    next: tag,
   });
 
   if (!response.ok) {
@@ -33,6 +35,7 @@ export async function postNoToken<T, Y>(
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
+    cache: "no-store",
   });
 
   if (!response.ok) {
@@ -54,6 +57,7 @@ export async function postData<Y>(
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${accessToken}`,
     },
+    cache: "no-store",
     body: body,
   });
 

@@ -5,7 +5,7 @@ import get from "./getAPI";
 import patch from "./patchAPI";
 
 export async function getUserInfo(userId: string, accessToken: string) {
-  const response = await get<responseAPI<UserInfoEntities>>(
+  const response = await get<UserInfoEntities>(
     `/users/getInfo/${userId}`,
     accessToken
   );
