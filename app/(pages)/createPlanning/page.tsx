@@ -1,7 +1,5 @@
 import { getAllProvinceOption } from "@/utils/api/province";
 import CreatePlanningForm from "../../components/form/createPlanningForm/createPlanningForm";
-import { getActivity, getAmenities } from "@/utils/api/lableRecommendation";
-import { getUserSession } from "@/lib/session";
 import { activitiesTags, amentitiesTags } from "@/utils/importer";
 
 export default async function CreatePlanning() {

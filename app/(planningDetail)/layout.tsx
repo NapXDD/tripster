@@ -1,7 +1,8 @@
-import { getUserSession } from "@/lib/session";
 import Header from "../components/Header/header";
 import SideBar from "../components/sidebar";
 import Footer from "../components/footer";
+
+export const dynamic = "force-dynamic";
 
 export default async function RootLayout({
   children,

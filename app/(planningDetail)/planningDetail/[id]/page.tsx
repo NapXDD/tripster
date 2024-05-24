@@ -3,29 +3,33 @@ import HotelCard from "@/app/components/card/hotelCard";
 import ItineraryCard from "@/app/components/card/itineraryCard";
 import TransportationCard from "@/app/components/card/transportationCard";
 import TripTitle from "@/app/components/card/tripTitle";
+import { transport } from "@/app/types/transportation";
+import { getUserSession } from "@/lib/session";
 import { getPlanDetail } from "@/utils/api/plan";
-import { getSession } from "next-auth/react";
+import { addCommaToNumber } from "@/utils/function/addCommas";
+import { revalidatePath } from "next/cache";
 
 export default async function PlanningDetail({
   params,
 }: {
   params: { id: string };
 }) {
-  const session = await getSession();
+  revalidatePath(`/planningDetail/${params.id}`, "page");
+  const session = await getUserSession();
   if (session) {
     const res = await getPlanDetail(
-      { idPlan: params.id.split('-')[0], idUser: params.id.split('-')[1] },
+      { idPlan: params.id.split("-")[0], idUser: params.id.split("-")[1] },
       session?.user.token
     );
     if (res) {
       return (
-        <>
-          <TripTitle title="HCM" />
-          <ItineraryCard id={params.id} />
-          <BudgetCard data={res.messageData.plan.budget} />
+        <div className="ml-2">
+          <TripTitle title={res.messageData.plan.end_point} />
+          <BudgetCard data={addCommaToNumber(res.messageData.plan.budget)} />
+          <ItineraryCard data={res} id={params.id} />
           <HotelCard data={res.messageData.accommodation[0]} />
-          <TransportationCard data={res.messageData.transport} />
-        </>
+          <TransportationCard data={res.messageData} />
+        </div>
       );
     }
   }
