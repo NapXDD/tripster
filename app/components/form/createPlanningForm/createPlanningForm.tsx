@@ -26,6 +26,8 @@ import dayjs from "dayjs";
 import { setMultiplan } from "@/lib/features/multiplan";
 import { setupPlan } from "@/utils/function/setupPlan";
 import { setRawPlan } from "@/lib/features/rawCreatePlan";
+import { destination } from "@/app/types/destination";
+import { useEffect, useState } from "react";
 
 export default function CreatePlanningForm({
   destinationData,

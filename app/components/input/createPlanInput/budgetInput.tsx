@@ -46,6 +46,7 @@ export default function BudgetInput() {
           max={max}
           onChange={onChange}
           value={budget}
+          step={500000}
         />
         <Space.Compact className="!w-full md:lg:!w-[40%]">
           <Input
@@ -54,11 +55,18 @@ export default function BudgetInput() {
             defaultValue="VND"
           />
           <InputNumber
+            formatter={(value) =>
+              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            parser={(value) =>
+              value?.replace(/\$\s?|(,*)/g, "") as unknown as number
+            }
             style={{ width: "65%" }}
             min={min}
             max={max}
             value={budget}
             onChange={onChange}
+            step={500000}
           />
         </Space.Compact>
       </div>

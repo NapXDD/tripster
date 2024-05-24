@@ -83,12 +83,10 @@ export default function ProfileEditForm() {
   };
 
   useEffect(() => {
-    if (isOpenOverLay === false) {
-      setImage(null);
-      setImagePreview(null);
-      setUsername(currentUser.name);
+    if (session !== null && session !== undefined && session.data?.user) {
+      dispatch(setUser(session.data.user));
     }
-  }, [isOpenOverLay]);
+  }, [session.update]);
 
   return (
     <Form onFinish={handleSubmit}>

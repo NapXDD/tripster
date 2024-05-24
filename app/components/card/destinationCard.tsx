@@ -1,4 +1,5 @@
 import { activity } from "@/app/types/plan";
+import { addCommaToNumber } from "@/utils/function/addCommas";
 import Image from "next/image";
 
 function ActivityCard({ data }: { data: activity }) {
@@ -11,7 +12,7 @@ function ActivityCard({ data }: { data: activity }) {
             Mở cửa từ {data.openTime} tới {data.closeTime}
           </div>
           <div className="text-lg font-semibold text-gray-800">
-            Cost: {data.price} VND
+            Giá: {addCommaToNumber(data.price)} VND
           </div>
           <div className="text-lg font-semibold text-gray-800">
             Rating: {data.rating}
