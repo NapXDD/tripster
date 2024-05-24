@@ -1,6 +1,8 @@
 import Header from "../components/Header/header";
 import Footer from "../components/footer";
 
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
