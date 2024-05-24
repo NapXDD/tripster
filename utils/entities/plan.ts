@@ -15,7 +15,8 @@ export interface plan {
   id: number;
   budget: number;
   id_user: number;
-  destination: string;
+  end_point: string;
+  start_point: string;
   start_day: string;
   end_day: string;
   id_transport: number;
@@ -34,11 +35,21 @@ export interface SavePlanEntity {
   planId: string;
 }
 
+export interface TransportResult {
+  id: number;
+  price: number;
+  type: "flight" | "coach";
+  name: string;
+  start_time: string | null;
+  end_time: string | null;
+  duration: string;
+}
+
 export interface PlanDetailEntity {
   plan: plan;
   activity: activity[];
   accommodation: hotel[];
-  transport: transport;
+  transport: TransportResult[];
 }
 
 export interface DeletePlanEntity {}

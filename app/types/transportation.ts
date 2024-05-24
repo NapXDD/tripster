@@ -48,7 +48,7 @@ export interface transportTypeCoach {
   id: string;
   price: number;
   name: string;
-  total_duration: number;
+  duration: number;
 }
 
 export type transport = transportTypeFlight | transportTypeCoach;

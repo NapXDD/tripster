@@ -1,4 +1,8 @@
-import { transport, transportation } from "@/app/types/transportation";
+import {
+  transport,
+  transportTypeCoach,
+  transportation,
+} from "@/app/types/transportation";
 
 export interface checkValidFlightDTO {
   departure: string;
@@ -24,12 +28,23 @@ export interface SavePlanDTO {
   end_point: string;
   activities: string[];
   hotel: string;
-  transport: transport;
+  transport: SavePlanTranportDTO;
+}
+
+export interface SavePlanTranportDTO {
+  price: number;
+  type: "coach" | "flight";
+  name: string;
+  start_time: null | string;
+  end_time: null | string;
+  duration: string;
 }
 
 export interface PlanDetailDTO {
   idPlan: string;
-  idUser: string
+  idUser: string;
 }
 
-export type DeletePlanDTO = PlanDetailDTO;
+export interface DeletePlanDTO {
+  idPlan: string;
+}
