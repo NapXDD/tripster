@@ -21,7 +21,7 @@ export const multiplanSelect = createSlice({
   initialState,
   reducers: {
     setMultiplan: (state, action: PayloadAction<multiplan>) => {
-      state.value.multiplan = action.payload;
+      state.value.multiplan = structuredClone(action.payload);
     },
     resetMultiplan: (state) => {
       state.value.multiplan = null;
