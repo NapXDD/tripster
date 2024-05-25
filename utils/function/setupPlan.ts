@@ -7,6 +7,9 @@ import { transport } from "@/app/types/transportation";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 
+//this function is created to transform data from backend to which interface does frontend need, because backend
+//kinda give me a raw data interface
+
 type DateRecord = Record<string, activity[]>;
 
 type PlansActivities = Record<string, activity[]>[];
