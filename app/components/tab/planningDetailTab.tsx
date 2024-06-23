@@ -5,48 +5,57 @@ import PlanningDetailContentCard from "../card/planningDetailContentCard";
 import TripTitle from "../card/tripTitle";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setPlanNumber } from "@/lib/features/planningSelection";
-
-const items: TabsProps["items"] = [
-  {
-    key: "1",
-    label: "Most Recommend",
-    children: <PlanningDetailContentCard />,
-  },
-  {
-    key: "2",
-    label: "Plan 2",
-    children: <PlanningDetailContentCard />,
-  },
-  {
-    key: "3",
-    label: "Plan 3",
-    children: <PlanningDetailContentCard />,
-  },
-  {
-    key: "4",
-    label: "Plan 4",
-    children: <PlanningDetailContentCard />,
-  },
-  {
-    key: "5",
-    label: "Plan 5",
-    children: <PlanningDetailContentCard />,
-  },
-];
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function PlanningDetailTab() {
   const dispatch = useAppDispatch();
+  const multiplan = useAppSelector(
+    (state) => state.multiplanSelect.value.multiplan
+  );
+  const newPlan = useAppSelector((state) => state.createPlanning.value);
+  const [items, setItems] = useState<TabsProps["items"]>([]);
+  const router = useRouter();
 
   const handleSwitchPlan = (key: string) => {
-    dispatch(setPlanNumber(key));
+    dispatch(setPlanNumber(parseInt(key)));
   };
+
+  useEffect(() => {
+    if (multiplan === null) {
+      router.replace("/");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (multiplan !== null && items) {
+      const newItem = [
+        {
+          key: "0",
+          label: "Most Recommend",
+          children: <PlanningDetailContentCard data={multiplan[0]} />,
+        },
+        {
+          key: "1",
+          label: "Plan 2",
+          children: <PlanningDetailContentCard data={multiplan[1]} />,
+        },
+        {
+          key: "2",
+          label: "Plan 3",
+          children: <PlanningDetailContentCard data={multiplan[2]} />,
+        },
+      ];
+      setItems([...newItem]);
+    }
+  }, [multiplan]);
 
   return (
     <div className="flex flex-col">
-      <div className="mt-2 mx-2 rounded-lg bg-white">
-        <TripTitle title="HCM" />
+      <div className="mt-2 ml-36 rounded-lg bg-white md:mx-2">
+        <TripTitle title={newPlan.destination.name} />
       </div>
-      <div className="bg-white m-2 px-2 rounded-lg">
+      <div className="bg-white ml-36 my-2 px-4 rounded-lg md:mx-2">
         <Tabs onChange={handleSwitchPlan} defaultActiveKey="1" items={items} />
       </div>
     </div>

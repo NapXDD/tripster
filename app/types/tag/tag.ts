@@ -1,6 +1,6 @@
 export interface Tag {
-  title: string;
-  value: string;
+  id: number;
+  name: string;
 }
 
 export type TagSelection = "activities" | "amentities";

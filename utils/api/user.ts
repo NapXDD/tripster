@@ -1,12 +1,22 @@
+import { GetUserInfoDTO, UpdateUserDTO } from "../DTO/user";
 import { responseAPI } from "../entities/response";
-import { UserInfoEntities } from "../entities/user";
+import { UpdateUserEntity, UserInfoEntities } from "../entities/user";
 import get from "./getAPI";
+import patch from "./patchAPI";
 
-export async function getUserInfo() {
-  const response = await get<responseAPI<UserInfoEntities>>("/users/getInfo");
-  if (response.status === "200") {
-    return response;
-  } else {
-    return Error(response.message);
-  }
+export async function getUserInfo(userId: string, accessToken: string) {
+  const response = await get<UserInfoEntities>(
+    `/users/getInfo/${userId}`,
+    accessToken
+  );
+  return response;
+}
+
+export async function updateUserInfo(body: FormData, accessToken: string) {
+  const response = await patch<responseAPI<UpdateUserEntity>>(
+    "/users/updateInfo",
+    body,
+    accessToken
+  );
+  return response;
 }

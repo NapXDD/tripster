@@ -1,15 +1,10 @@
-import { User, getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
+import { authOptions } from "./auth";
 
-export const session = async ({ session, token }: any) => {
-  session.user.id = token.id;
-  return session;
-};
-
-export const getUserSession = async (): Promise<User> => {
-  const authUserSession = await getServerSession({
-    callbacks: {
-      session,
-    },
-  });
-  return authUserSession?.user;
+export const getUserSession = async (): Promise<Session | undefined> => {
+  const authUserSession = await getServerSession(authOptions);
+  if (authUserSession !== null) {
+    return authUserSession;
+  }
+  return undefined;
 };

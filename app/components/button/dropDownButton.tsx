@@ -1,6 +1,12 @@
+"use client";
+
+import { useAppSelector } from "@/lib/hooks";
+import { deletePlan } from "@/utils/api/plan";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Dropdown, MenuProps } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function DropDownButton({
   className,
@@ -9,6 +15,23 @@ export default function DropDownButton({
   className?: string;
   id: string;
 }) {
+  const currentUser = useAppSelector((state) => state.user.value.user);
+  const router = useRouter();
+  const handleDelete = async () => {
+    try {
+      const res = await deletePlan(
+        { idPlan: id.split("-")[0] },
+        currentUser.token
+      );
+      if (res.status === "200") {
+        toast.success("Xóa thành công");
+        router.refresh();
+      }
+    } catch (e) {
+      throw e;
+    }
+  };
+
   const items: MenuProps["items"] = [
     {
       label: <Link href={`/planningDetail/${id}`}>Xem</Link>,
@@ -18,7 +41,7 @@ export default function DropDownButton({
       type: "divider",
     },
     {
-      label: "Xóa",
+      label: <button onClick={handleDelete}>Xóa</button>,
       key: "1",
     },
   ];

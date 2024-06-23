@@ -3,6 +3,7 @@ import {
   LoginDTO,
   SignUpDTO,
   VerifyOtpDTO,
+  generateOtpDTO,
 } from "../DTO/authenticate";
 import {
   ChangePasswordEntity,
@@ -10,56 +11,44 @@ import {
   SignUpEntity,
   VerifyOtpEntity,
 } from "../entities/authenticate";
-import { responseAPI } from "../entities/response";
-import post from "./postAPI";
+import post, { postNoToken } from "./postAPI";
 
-export async function signup(api: string, body: SignUpDTO) {
-  const response = await post<SignUpDTO, responseAPI<SignUpEntity>>(api, body);
-  if (response.status === "201") {
-    return response;
-  } else {
-    return Error(response.message);
-  }
-}
-
-export async function login(api: string, body: LoginDTO) {
-  const response = await post<LoginDTO, responseAPI<LoginEntity>>(api, body);
-  if (response.status === "201") {
-    return response;
-  } else {
-    return Error(response.message);
-  }
-}
-
-export async function generateOTP(api: string, body: LoginDTO) {
-  const response = await post<LoginDTO, responseAPI<LoginEntity>>(api, body);
-  if (response.status === "201") {
-    return response;
-  } else {
-    return Error(response.message);
-  }
-}
-
-export async function verifyOTP(api: string, body: VerifyOtpDTO) {
-  const response = await post<VerifyOtpDTO, responseAPI<VerifyOtpEntity>>(
-    api,
+export async function signup(body: SignUpDTO) {
+  const response = await postNoToken<SignUpDTO, SignUpEntity>(
+    "/auth/signup",
     body
   );
-  if (response.status === "200") {
-    return response;
-  } else {
-    return Error(response.message);
-  }
+  return response;
 }
 
-export async function changePassword(api: string, body: ChangePasswordDTO) {
-  const response = await post<
-    ChangePasswordDTO,
-    responseAPI<ChangePasswordEntity>
-  >(api, body);
-  if (response.status === "200") {
-    return response;
-  } else {
-    return Error(response.message);
-  }
+export async function login(body: LoginDTO) {
+  const response = await postNoToken<LoginDTO, LoginEntity>(
+    "/auth/login",
+    body
+  );
+  return response;
+}
+
+export async function generateOTP(body: generateOtpDTO) {
+  const response = await postNoToken<generateOtpDTO, LoginEntity>(
+    "/auth/generate-otp",
+    body
+  );
+  return response;
+}
+
+export async function verifyOTP(body: VerifyOtpDTO) {
+  const response = await postNoToken<VerifyOtpDTO, VerifyOtpEntity>(
+    "/auth/verify-otp",
+    body
+  );
+  return response;
+}
+
+export async function changePassword(body: ChangePasswordDTO) {
+  const response = await postNoToken<ChangePasswordDTO, ChangePasswordEntity>(
+    "/auth/change-password",
+    body
+  );
+  return response;
 }

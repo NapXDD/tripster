@@ -4,9 +4,12 @@ import { User } from "next-auth";
 
 export interface CurrentUser {
   id: string;
-  username: string;
+  name: string;
   email: string;
   image: string;
+  token: string;
+  expires: string;
+  active: number;
 }
 
 interface Init {
@@ -18,10 +21,13 @@ interface Init {
 let initialState: Init = {
   value: {
     user: {
-      id: "1",
-      username: "",
+      id: "",
+      name: "",
       email: "",
       image: "",
+      expires: "",
+      token: "",
+      active: 0,
     },
   },
 };
@@ -31,23 +37,28 @@ export const user = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
-      let username = action.payload.email?.split("@")[0];
-      if (username && action.payload.email && action.payload.image) {
+      if (action.payload.email) {
         let currentUser: CurrentUser = {
-          id: "1",
-          username: username,
+          id: action.payload.id,
+          name: action.payload.name,
           email: action.payload.email,
           image: action.payload.image,
+          expires: action.payload.expires,
+          token: action.payload.token,
+          active: action.payload.active,
         };
         state.value.user = currentUser;
       }
     },
     removeUser: (state) => {
       let currentUser: CurrentUser = {
-        id: "1",
-        username: "",
+        id: "",
+        name: "",
         email: "",
         image: "",
+        expires: "",
+        token: "",
+        active: 0,
       };
       state.value.user = currentUser;
     },

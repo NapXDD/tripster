@@ -1,10 +1,15 @@
 "use client";
 
 import { openModal } from "@/lib/features/modal";
-import { useAppDispatch } from "@/lib/hooks";
-import { signup } from "@/utils/api/authenticate";
+import { generateOTP, login, signup } from "@/utils/api/authenticate";
+import { setEmail } from "@/lib/features/authenticate";
+import { openOverLay } from "@/lib/features/overlay";
+import { signIn, signOut } from "next-auth/react";
 import { Button, Form, FormProps, Input } from "antd";
+import { useAppDispatch } from "@/lib/hooks";
 import { Fragment, useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type FieldType = {
   email: string;
@@ -15,42 +20,38 @@ const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 
-export default function CredentialButton({
-  type,
-}: {
-  type: "signin" | "signup";
-}) {
+export default function SignInForm() {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const openForgotModal = () => {
     dispatch(openModal("forgotpassword"));
   };
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    dispatch(setEmail(values.email));
     setIsLoading(true);
-    if (type === "signin") {
-      try {
-        const response = await signup("/auth/signin", {
-          email: values.email,
-          password: values.password,
-        });
-        console.log(response);
-      } catch (e) {
-        console.log(e);
-      }
+    const response = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+    if (response?.ok) {
+      router.refresh();
+      dispatch(openOverLay(false));
+      setIsLoading(false);
     } else {
-      try {
-        const response = await signup("/auth/signup", {
-          email: values.email,
-          password: values.password,
-        });
-        console.log(response);
-      } catch (e) {
-        console.log(e);
+      if (response?.status === 401) {
+        const response = await generateOTP({ email: values.email });
+        if (response.status === "200" || response.status === "201") {
+          dispatch(openModal("otp"));
+        }
+      } else {
+        toast.error(`$HTTP Error ${response?.status}: ${response?.error}`);
       }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
@@ -79,31 +80,28 @@ export default function CredentialButton({
       >
         <Input.Password size="large" placeholder="Password" />
       </Form.Item>
-      {type === "signin" ? (
-        <Fragment>
-          <Form.Item>
-            <Button onClick={openForgotModal} style={{ border: "none" }}>
-              Forgot password ?
-            </Button>
-          </Form.Item>
+      <Fragment>
+        <Form.Item>
+          <Button
+            disabled={isLoading}
+            htmlType="button"
+            onClick={openForgotModal}
+            style={{ border: "none" }}
+          >
+            Forgot password ?
+          </Button>
+        </Form.Item>
 
-          <Form.Item>
-            <Button style={{ border: "none" }} htmlType="submit">
-              Login
-            </Button>
-          </Form.Item>
-        </Fragment>
-      ) : (
         <Form.Item>
           <Button
             disabled={isLoading}
             style={{ border: "none" }}
             htmlType="submit"
           >
-            Sign up
+            Login
           </Button>
         </Form.Item>
-      )}
+      </Fragment>
     </Form>
   );
 }

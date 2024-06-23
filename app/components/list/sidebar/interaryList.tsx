@@ -5,16 +5,17 @@ import ListItem from "./listItem";
 import ListLayout from "./listLayout";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { setListDate } from "@/lib/features/createPlanning";
+import { setDate, setListDate } from "@/lib/features/createPlanning";
 import { getListDate } from "@/utils/function/getListDate";
 
 export default function InteraryList() {
   const pathName = usePathname();
-  const router = useRouter();
   const [dates, setDates] = useState<string[]>([]);
   const dispatch = useAppDispatch();
   const newPlan = useAppSelector((state) => state.createPlanning.value);
-  const storedPlan = useAppSelector((state) => state.planning.value);
+  const storedPlan = useAppSelector(
+    (state) => state.multiplanSelect.value.multiplan
+  );
 
   useEffect(() => {
     let listDate: string[] = [];
@@ -22,10 +23,24 @@ export default function InteraryList() {
       listDate = getListDate(newPlan.startDate, newPlan.endDate);
       dispatch(setListDate(listDate));
     } else {
-      listDate = getListDate(storedPlan.startDate, storedPlan.endDate);
+      if (storedPlan !== null) {
+        for (let date in storedPlan[0].activities) {
+          listDate.push(date);
+        }
+      }
     }
     setDates(listDate);
   }, [pathName]);
+
+  useEffect(() => {
+    let dateList = [];
+    if (storedPlan !== null) {
+      for (let date in storedPlan[0].activities) {
+        dateList.push(date);
+      }
+      setDates(dateList);
+    }
+  }, [storedPlan]);
 
   return (
     <ListLayout id="Itinerary" title="Lịch trình">

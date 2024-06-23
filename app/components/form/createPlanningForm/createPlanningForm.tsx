@@ -4,38 +4,84 @@ import BudgetInput from "../../input/createPlanInput/budgetInput";
 import DestinationInput from "../../input/createPlanInput/destinationInput";
 import SelectTagInput from "../../input/createPlanInput/selectTagInput";
 import TimeInput from "../../input/createPlanInput/timeInput";
-import { activitiesTags, amentitiesTags } from "@/utils/importer";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import FormItem from "./FormItem";
 import { openOverLay } from "@/lib/features/overlay";
 import { openModal } from "@/lib/features/modal";
 import { useRouter } from "next/navigation";
 import { Divider, Form } from "antd";
-import checkTransportation from "@/utils/validator/checkTransportation";
 import TransportationInput from "../../input/createPlanInput/transportationInput";
-import checkDestination from "@/utils/validator/checkDestination";
-import checkBudget from "@/utils/validator/checkBudget";
-import checkStartEndDate from "@/utils/validator/checkStartEndDate";
 import Button from "../../button/button";
-import { option } from "@/app/type/option";
+import { option } from "@/app/types/option";
 import {
   resetCreatePlanning,
-  setTransportation,
+  setDestination,
+  setStartPoint,
 } from "@/lib/features/createPlanning";
+import { Tag } from "@/app/types/tag/tag";
+import { checkValidFlight, createPlan } from "@/utils/api/plan";
+import removeProvincePrefix from "@/utils/function/getProvince";
+import { toast } from "react-toastify";
+import { CreatePlanDTO } from "@/utils/DTO/plan";
+import dayjs from "dayjs";
+import { setMultiplan } from "@/lib/features/multiplan";
+import { setupPlan } from "@/utils/function/setupPlan";
+import { setRawPlan } from "@/lib/features/rawCreatePlan";
+import { destination } from "@/app/types/destination";
+import { useEffect, useState } from "react";
 
 export default function CreatePlanningForm({
   destinationData,
+  amenityTags,
+  activityTags,
 }: {
   destinationData: option[];
+  amenityTags: Tag[];
+  activityTags: Tag[];
 }) {
-  const newPlanning = useAppSelector((state) => state.createPlanning.value);
-  const user = useAppSelector((state) => state.user.value.user);
+  const currentUser = useAppSelector((state) => state.user.value.user);
+  const newPlan = useAppSelector((state) => state.createPlanning.value);
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const handleSubmit = () => {
-    if (user.email !== "") {
-      router.push("/planningSelection");
+  const handleSubmit = async () => {
+    if (currentUser.email !== "") {
+      try {
+        const res = await checkValidFlight(
+          {
+            departure: removeProvincePrefix(newPlan.startPoint.name),
+            arrival: removeProvincePrefix(newPlan.destination.name),
+          },
+          currentUser.token
+        );
+        if (res.status === "200") {
+          const amenities = newPlan.amentities.map((item) => item.id);
+          const activities = newPlan.activities.map((item) => item.name);
+          //modify data here
+          const data: CreatePlanDTO = {
+            budget: newPlan.budget,
+            start_day: dayjs(newPlan.startDate, "DD/MM/YYYY").format(
+              "YYYY-MM-DD"
+            ),
+            end_day: dayjs(newPlan.endDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
+            end_point: removeProvincePrefix(newPlan.destination.name),
+            start_point: removeProvincePrefix(newPlan.startPoint.name),
+            type_transport: newPlan.transportation,
+            amenities_input: amenities,
+            types: activities,
+          };
+          const res = await createPlan(data, currentUser.token);
+          if (res.status === "200") {
+            dispatch(setRawPlan(res));
+            const plans = setupPlan(res);
+            dispatch(setMultiplan(plans));
+            router.push("/planningSelection");
+          }
+        }
+      } catch (e) {
+        toast.error(
+          `Không có chuyến bay từ ${newPlan.startPoint.name} tới ${newPlan.destination.name}`
+        );
+      }
     } else {
       dispatch(openOverLay(true));
       dispatch(openModal("signin"));
@@ -49,35 +95,46 @@ export default function CreatePlanningForm({
   return (
     <div className="w-[50%] bg-gray-200 p-5 rounded-lg flex flex-col gap-2">
       <Form onFinish={handleSubmit} autoComplete="off">
+        <div className="flex gap-4 flex-col lg:flex-row">
+          <Form.Item style={{ width: "100%" }} name="startPoint">
+            <DestinationInput
+              setLocation={setStartPoint}
+              initData={newPlan.startPoint}
+              label="Điểm đi"
+              destinations={destinationData}
+            />
+          </Form.Item>
+          <Form.Item style={{ width: "100%" }} name="destination">
+            <DestinationInput
+              setLocation={setDestination}
+              initData={newPlan.destination}
+              label="Điểm đến"
+              destinations={destinationData}
+            />
+          </Form.Item>
+        </div>
         <Form.Item name="transportation">
-          <FormItem label="Phương tiện" required>
-            <TransportationInput />
-          </FormItem>
-        </Form.Item>
-        <Form.Item name="destination">
-          <FormItem label="Điểm đến" required>
-            <DestinationInput destinations={destinationData} />
-          </FormItem>
-        </Form.Item>
-        <Form.Item name="budget">
-          <FormItem label="Ngân sách" required>
-            <BudgetInput />
-          </FormItem>
+          <TransportationInput />
         </Form.Item>
         <Form.Item name="time">
-          <FormItem label="Thời gian" required>
-            <TimeInput />
-          </FormItem>
+          <TimeInput />
+        </Form.Item>
+        <Form.Item name="budget">
+          <BudgetInput />
+        </Form.Item>
+        <Form.Item name="activities">
+          <SelectTagInput
+            data={activityTags}
+            type="activities"
+            note="Không bắt buộc, có thể lựa chọn tối đa tới 5 tag"
+          />
         </Form.Item>
         <Form.Item>
-          <FormItem label="Hoạt động">
-            <SelectTagInput data={activitiesTags} type="activities" />
-          </FormItem>
-        </Form.Item>
-        <Form.Item>
-          <FormItem label="Tiện ích, dịch vụ">
-            <SelectTagInput data={amentitiesTags} type="amentities" />
-          </FormItem>
+          <SelectTagInput
+            data={amenityTags}
+            type="amentities"
+            note="Không bắt buộc, có thể lựa chọn tối đa tới 5 tag"
+          />
         </Form.Item>
         <Divider />
         <div className="flex justify-end gap-2 pb-2">

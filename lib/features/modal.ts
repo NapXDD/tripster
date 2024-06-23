@@ -10,10 +10,12 @@ export type openModal =
   | "signup"
   | "editprofile"
   | "forgotpassword"
-  | "changepassword";
+  | "changepassword"
+  | "otp";
 
 let initialState: ModalOpen = {
   value: {
+    otp: false,
     signin: false,
     signup: false,
     editprofile: false,

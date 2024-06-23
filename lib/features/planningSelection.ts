@@ -3,13 +3,13 @@ import { RootState } from "../store";
 
 interface planSelectionInit {
   value: {
-    planNumber: string;
+    planNumber: number;
   };
 }
 
 let initialState: planSelectionInit = {
   value: {
-    planNumber: "1",
+    planNumber: 0,
   },
 };
 
@@ -17,7 +17,7 @@ export const planningSelection = createSlice({
   name: "planningSelection",
   initialState,
   reducers: {
-    setPlanNumber: (state, action: PayloadAction<string>) => {
+    setPlanNumber: (state, action: PayloadAction<number>) => {
       state.value.planNumber = action.payload;
     },
   },

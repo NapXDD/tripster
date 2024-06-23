@@ -27,7 +27,7 @@ export default function Button({
             } min-w-[80px] rounded-3xl hover:bgRedHover`
           : `${isLoading ? "bgWhiteHover" : "bg-white"} text-gray-800 ${
               className ? className : "p-1"
-            } min-w-[80px] border rounded-3xl hover:bgWhiteHover`
+            } min-w-[80px] border-2 rounded-3xl hover:bgWhiteHover`
       }
       onClick={onClick}
       type={htmlType}

@@ -3,18 +3,21 @@ import { RootState } from "../store";
 
 let initialState = {
   value: {
-    accessToken: "",
-    refreshToken: "",
+    email: "",
   },
 };
 
 export const authenticate = createSlice({
   name: "authenticate",
   initialState,
-  reducers: {},
+  reducers: {
+    setEmail: (state, action: PayloadAction<string>) => {
+      state.value.email = action.payload;
+    },
+  },
 });
 
-export const {} = authenticate.actions;
+export const { setEmail } = authenticate.actions;
 
 export const selectAuthenticate = (state: RootState) =>
   state.authenticate.value;
